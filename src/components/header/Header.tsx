@@ -16,7 +16,7 @@ const Header = () => {
             </h1>
             <SearchBox />
           </div>
-          <div>
+          <div className="block md:hidden">
             <Profile />
           </div>
         </div>
