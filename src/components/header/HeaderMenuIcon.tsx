@@ -4,14 +4,16 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 interface iconProps {
   icon: IconProp;
+  path?: string;
+  className?: string;
 }
 
-const HeaderMenuIcon: React.FC<iconProps> = ({ icon }) => {
+const HeaderMenuIcon: React.FC<iconProps> = ({ icon, path, className }) => {
   return (
     <>
       <a
-        href="#"
-        className="text-2xl text-[#606266] hover:bg-[#f2f2f2] active:scale-90 px-7 active:bg-blue-100 active:text-blue-600 py-2 rounded-md cursor-pointer transition duration-[0.2s] ease-in-out"
+        href={path}
+        className={`${className} py-1 px-3 xs:py-2 xs:px-5 lg:px-7 text-2xl text-[#606266] hover:bg-greenish-gray active:scale-90 active:bg-light-green active:text-green rounded-md cursor-pointer transition-default`}
       >
         <FontAwesomeIcon icon={icon} />
       </a>

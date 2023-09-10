@@ -11,6 +11,9 @@ import {
   faBell,
   faGear,
   faMagnifyingGlass,
+  faClose,
+  faArrowLeft,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -24,5 +27,8 @@ library.add(
   faPlus,
   faBell,
   faGear,
-  faMagnifyingGlass
+  faMagnifyingGlass,
+  faClose,
+  faArrowLeft,
+  faBars
 );

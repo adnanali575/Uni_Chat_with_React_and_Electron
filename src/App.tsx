@@ -25,12 +25,12 @@ function App() {
     <>
       <Header />
 
-      <div className="grid grid-cols-2 gap-8 p-8">
+      <div className="grid grid-cols-1 xs:grid-cols-2 gap-8 p-8">
         {arr.map((e) => (
           <span
             onClick={() => test(e)}
             key={e}
-            className="p-8 shadow-md cursor-pointer hover:bg-blue-50 active:scale-90 transition-all duration-200 bg-white text-4xl rounded-xl flex items-center justify-center"
+            className="p-8 shadow-md cursor-pointer hover:bg-blue-50 active:scale-90 transition-default bg-white text-4xl rounded-xl flex items-center justify-center"
           >
             {e}
           </span>
