@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import HeaderMenuIcon from "./header/HeaderMenuIcon";
+import HeaderMenuIcon from "../header/HeaderMenuIcon";
+import SidebarIcons from "./SidebarIcons";
 
 const SideBarMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +26,12 @@ const SideBarMenu = () => {
                 className="text-2xl p-3 hover:text-green text-text-gray"
               />
             </button>
+          </div>
+          <div className="flex flex-col gap-2">
+            <SidebarIcons icon="gear" label="Settings" />
+            <SidebarIcons icon="user" label="Profile Setting" />
+            <SidebarIcons icon="floppy-disk" label="Saved" />
+            <SidebarIcons icon="palette" label="Display Settings" />
           </div>
         </div>
       </div>

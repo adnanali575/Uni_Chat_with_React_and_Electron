@@ -5,7 +5,7 @@ import "./index.css";
 import "./font-wesome.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <div className="min-h-screen pt-[111px] xs:pt-[121px] md:pt-[75px] bg-[#f0f2f5]">
+  <div className="min-h-screen pt-[105px] xs:pt-[113px] md:pt-[57px] bg-[#f0f2f5]">
     <React.StrictMode>
       <App />
     </React.StrictMode>

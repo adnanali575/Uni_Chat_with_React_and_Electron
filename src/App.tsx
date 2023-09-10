@@ -2,10 +2,6 @@ import { useEffect } from "react";
 import Header from "./components/header/Header";
 
 function App() {
-  const test = (e: number) => {
-    alert("You have clicked on: " + e);
-  };
-
   const arr = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ];
@@ -24,17 +20,43 @@ function App() {
   return (
     <>
       <Header />
+      <div className="hidden justify-between text-9xl">
+        <div className=" w-[25%] hidden lg:flex bg-light-green z-0 fixed left-0 top-[57px] bottom-0">
+          <div className="w-full px-4 pe-4 hover:pe-[11px] overflow-x-hidden overflow-y-hidden hover:overflow-y-auto flex flex-col gap-3 rounded-md">
+            {arr.map((e) => (
+              <b
+                key={e}
+                className="px-9 py-5 bg-white rounded-md text-center text-5xl"
+              >
+                {e}
+              </b>
+            ))}
+          </div>
+        </div>
 
-      <div className="grid grid-cols-1 xs:grid-cols-2 gap-8 p-8">
-        {arr.map((e) => (
-          <span
-            onClick={() => test(e)}
-            key={e}
-            className="p-8 shadow-md cursor-pointer hover:bg-blue-50 active:scale-90 transition-default bg-white text-4xl rounded-xl flex items-center justify-center"
-          >
-            {e}
-          </span>
-        ))}
+        <div className="min-h-screen w-full xs:w-11/12 md:w-[80%] lg:w-1/2 mx-auto p-4 flex flex-col gap-3">
+          {arr.map((e) => (
+            <b
+              key={e}
+              className="px-9 py-5 bg-white rounded-md text-center text-5xl"
+            >
+              {e}
+            </b>
+          ))}
+        </div>
+
+        <div className="p-4 w-[25%] hidden lg:flex  bg-light-green z-0 fixed right-0 top-[57px] bottom-0">
+          <div className="w-full px-4 pe-4 hover:pe-[11px] overflow-x-hidden overflow-y-hidden hover:overflow-y-auto flex flex-col gap-3 rounded-md">
+            {arr.map((e) => (
+              <b
+                key={e}
+                className="px-9 py-5 bg-white rounded-md text-center text-5xl"
+              >
+                {e}
+              </b>
+            ))}
+          </div>
+        </div>
       </div>
     </>
   );

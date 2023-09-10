@@ -28,12 +28,15 @@ const SearchBox = () => {
 
   return (
     <>
+      {isOpen && (
+        <div className="xs:hidden fixed w-screen h-screen bg-black opacity-50 inset-0"></div>
+      )}
       <div
         onClick={() => setIsOpen(true)}
         ref={dropdownRef}
         className={`${
           isOpen
-            ? `shadow-header absolute inset-0 py-2 flex-col w-full xs:w-[300px] justify-start  h-[300px] bg-white`
+            ? `shadow-header absolute inset-0 py-2 flex-col w-full xs:w-[300px] justify-start h-[80vh]  xs:h-[300px] bg-white`
             : `h-fit md:h-[57px] md:py-2 lg:w-[300px] items-center`
         } flex px-4  transition-all duration-300`}
       >
@@ -58,7 +61,7 @@ const SearchBox = () => {
             className={`${
               isOpen
                 ? `ps-4 grow`
-                : `flex placeholder-greenish-gray lg:placeholder-text-gray items-center justify-center cursor-pointer aspect-auto w-[40px]   lg:cursor-auto lg:aspect-square lg:ps-9 lg:w-full`
+                : `w-[40px] xs:w-full md:w-[40px] lg:w-full ps-3 xs:ps-9 md:ps-3 lg:ps-9 flex placeholder-greenish-gray md:placeholder-greenish-gray xs:placeholder-text-gray lg:placeholder-text-gray items-center justify-center cursor-pointer aspect-auto lg:cursor-auto lg:aspect-square `
             } text-sm lg:pe-3 h-[40px] outline-none bg-greenish-gray rounded-full transition-default`}
           />
         </div>
