@@ -33,9 +33,9 @@ const SearchBox = () => {
         ref={dropdownRef}
         className={`${
           isOpen
-            ? `shadow-header absolute inset-0 flex-col w-full xs:w-[300px] justify-start  h-[300px] bg-white`
-            : `h-fit md:h-[57px] lg:w-[300px] items-center`
-        } flex px-4 md:py-2 transition-all duration-300`}
+            ? `shadow-header absolute inset-0 py-2 flex-col w-full xs:w-[300px] justify-start  h-[300px] bg-white`
+            : `h-fit md:h-[57px] md:py-2 lg:w-[300px] items-center`
+        } flex px-4  transition-all duration-300`}
       >
         <div className="flex justify-end items-center"></div>
         <div className="text-[#606266] w-full relative gap-3 flex justify-between items-center">
