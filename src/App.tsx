@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Header from "./components/header/Header";
-import LoginView from "./views/LoginView";
-import SignUPView from "./views/SignUPView";
+// import LoginView from "./views/LoginView";
+// import SignUPView from "./views/SignUPView";
 
 function App() {
   const arr = [
