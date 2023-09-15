@@ -6,9 +6,23 @@ import HeaderMenuIcon from "./HeaderMenuIcon";
 import PostWindow from "./PostWindow";
 import RightMenuIcons from "./RightMenuIcons";
 import SearchBox from "./SearchBox";
+import DynamicDropDown from "../DynamicDropDown";
+import MessengerDropDown from "../Messenger/MessengerDropDown";
+import NotificationsDropdown from "../NotificationsDropdown";
 
 const Header = () => {
   const [isSlideDownOpen, setIsSlideDownOpen] = useState(false);
+  const [isMessengerDropdown, setIsMessengerDropdown] = useState(false);
+  const [isNotificationsDropdown, setIsNotificationsDropdown] = useState(false);
+
+  const toggleMessengerDropdown = () => {
+    setIsMessengerDropdown(!isMessengerDropdown);
+  };
+
+  const toggleNotificatinsDrodown = () => {
+    setIsNotificationsDropdown(!isNotificationsDropdown);
+  };
+
   return (
     <>
       <div className="w-full h-fit md:h-[57px] fixed top-0 bg-white py-2 flex flex-col md:flex-row md:justify-between md:items-center px-6 shadow-header">
@@ -29,6 +43,7 @@ const Header = () => {
               onClick={() => setIsSlideDownOpen(true)}
               icon="plus"
             />
+            <RightMenuIcons icon="message" />
             <Profile />
           </div>
         </div>
@@ -37,16 +52,42 @@ const Header = () => {
           <HeaderMenuIcon icon="house" />
           <HeaderMenuIcon icon="user-group" />
           <HeaderMenuIcon icon="video" />
-          <HeaderMenuIcon icon="floppy-disk" className="hidden xs:block" />
+          <HeaderMenuIcon icon="bell" className="block md:hidden" />
+          <HeaderMenuIcon icon="floppy-disk" className="hidden md:block" />
           <HeaderMenuIcon icon="gear" className="hidden md:block" />
 
           <SideBarMenu />
         </div>
         <div className="hidden md:block">
           <div className="flex items-center gap-3">
-            <SlidUpWindow />
-            <RightMenuIcons icon="message" />
-            <RightMenuIcons icon="bell" />
+            <SlidUpWindow
+              isShow={isSlideDownOpen}
+              setIsShow={() => setIsSlideDownOpen(!isSlideDownOpen)}
+              content={<PostWindow />}
+            />
+            <RightMenuIcons
+              onClick={() => setIsSlideDownOpen(true)}
+              icon="plus"
+            />
+            <div className="relative">
+              <RightMenuIcons
+                onClick={toggleMessengerDropdown}
+                icon="message"
+              />
+              <DynamicDropDown
+                content={<MessengerDropDown />}
+                isDropdownOpen={isMessengerDropdown}
+                toggleDropdown={toggleMessengerDropdown}
+              />
+            </div>
+            <div className="relative">
+              <RightMenuIcons onClick={toggleNotificatinsDrodown} icon="bell" />
+              <DynamicDropDown
+                content={<NotificationsDropdown />}
+                isDropdownOpen={isNotificationsDropdown}
+                toggleDropdown={toggleNotificatinsDrodown}
+              />
+            </div>
             <Profile />
           </div>
         </div>
