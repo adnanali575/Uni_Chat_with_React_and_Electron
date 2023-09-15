@@ -1,11 +1,14 @@
+import { useState } from "react";
 import Profile from "../Profile";
 import SideBarMenu from "../SidebarMenu/SideBarMenu";
 import SlidUpWindow from "../SlidUpWindow";
 import HeaderMenuIcon from "./HeaderMenuIcon";
+import PostWindow from "./PostWindow";
 import RightMenuIcons from "./RightMenuIcons";
 import SearchBox from "./SearchBox";
 
 const Header = () => {
+  const [isSlideDownOpen, setIsSlideDownOpen] = useState(false);
   return (
     <>
       <div className="w-full h-fit md:h-[57px] fixed top-0 bg-white py-2 flex flex-col md:flex-row md:justify-between md:items-center px-6 shadow-header">
@@ -17,7 +20,15 @@ const Header = () => {
             <SearchBox />
           </div>
           <div className="flex gap-3 md:hidden">
-            <SlidUpWindow />
+            <SlidUpWindow
+              isShow={isSlideDownOpen}
+              setIsShow={() => setIsSlideDownOpen(!isSlideDownOpen)}
+              content={<PostWindow />}
+            />
+            <RightMenuIcons
+              onClick={() => setIsSlideDownOpen(true)}
+              icon="plus"
+            />
             <Profile />
           </div>
         </div>
@@ -28,6 +39,7 @@ const Header = () => {
           <HeaderMenuIcon icon="video" />
           <HeaderMenuIcon icon="floppy-disk" className="hidden xs:block" />
           <HeaderMenuIcon icon="gear" className="hidden md:block" />
+
           <SideBarMenu />
         </div>
         <div className="hidden md:block">
