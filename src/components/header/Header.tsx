@@ -1,7 +1,8 @@
 import Profile from "../Profile";
 import SideBarMenu from "../SidebarMenu/SideBarMenu";
+import SlidUpWindow from "../SlidUpWindow";
 import HeaderMenuIcon from "./HeaderMenuIcon";
-import RightMenu from "./RightMenu";
+import RightMenuIcons from "./RightMenuIcons";
 import SearchBox from "./SearchBox";
 
 const Header = () => {
@@ -15,7 +16,8 @@ const Header = () => {
             </h1>
             <SearchBox />
           </div>
-          <div className="block md:hidden">
+          <div className="flex gap-3 md:hidden">
+            <SlidUpWindow />
             <Profile />
           </div>
         </div>
@@ -29,7 +31,12 @@ const Header = () => {
           <SideBarMenu />
         </div>
         <div className="hidden md:block">
-          <RightMenu />
+          <div className="flex items-center gap-3">
+            <SlidUpWindow />
+            <RightMenuIcons icon="message" />
+            <RightMenuIcons icon="bell" />
+            <Profile />
+          </div>
         </div>
       </div>
     </>
