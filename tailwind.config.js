@@ -5,7 +5,9 @@ export default {
     colors: {
       white: "#fff",
       black: "#000",
-      green: "#108a00",
+      gray: "#e9e9e9",
+      green: "#15b200",
+      "green-1": "#108a00",
       "light-green": "#e3f9ec",
       "greenish-gray": "#f2f7f2",
       "text-gray": "#606266",
