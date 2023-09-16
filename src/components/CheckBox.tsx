@@ -11,7 +11,7 @@ const CheckBox: React.FC<CheckBox> = ({ className, onClick, title }) => {
   const [isClicked, setIsClicked] = useState(true);
 
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick} className="w-fit">
       <div
         onClick={() => setIsClicked(!isClicked)}
         className="flex items-center gap-2"
