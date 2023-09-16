@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import Header from "./components/header/Header";
+// import Header from "./components/header/Header";
 // import LoginView from "./views/LoginView";
-// import SignUPView from "./views/SignUPView";
+import SignUPView from "./views/SignUPView";
 
 function App() {
   const arr = [
@@ -21,9 +21,9 @@ function App() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {/* <LoginView /> */}
-      {/* <SignUPView /> */}
+      <SignUPView />
       <div className="hidden justify-between text-9xl">
         <div className=" w-[25%] hidden lg:flex bg-light-green z-0 fixed left-0 top-[57px] bottom-0">
           <div className="w-full px-4 pe-4 hover:pe-[11px] overflow-x-hidden overflow-y-hidden hover:overflow-y-auto flex flex-col gap-3 rounded-md">

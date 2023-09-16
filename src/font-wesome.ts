@@ -17,6 +17,9 @@ import {
   faPalette,
   faEyeSlash,
   faEye,
+  faCheck,
+  faDotCircle,
+  faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -36,5 +39,8 @@ library.add(
   faBars,
   faPalette,
   faEyeSlash,
-  faEye
+  faEye,
+  faCheck,
+  faDotCircle,
+  faCircleCheck
 );

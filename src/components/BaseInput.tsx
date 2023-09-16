@@ -10,8 +10,8 @@ interface InputType {
   isPassword?: boolean;
   toggleType?: () => void;
   password?: boolean;
-  value?: string;
-  onChange: (newValue: string) => void;
+  value?: any;
+  onChange: (newValue: any) => void;
 }
 
 const BaseInput: React.FC<InputType> = ({
