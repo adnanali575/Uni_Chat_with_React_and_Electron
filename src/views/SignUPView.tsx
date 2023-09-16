@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BaseButton from "../components/BaseButton";
 import BaseInput from "../components/BaseInput";
+import StrongPasswordChecker from "../components/signup/password_strength_checker/PasswordStrengthChecker";
+import { passwordStrengthController } from "../../src/helpers";
+import CheckBox from "../components/CheckBox";
+import { SignUpDataType } from "../types";
 
 const SignUPView = () => {
-  const [isPassword, setIsPassword] = useState(true);
-  const [isConfirmPassword, setIsConfirmPassword] = useState(true);
-  const [signUpData, setSignUpData] = useState({
+  const [isPassword, setIsPassword] = useState<boolean>(true);
+  const [isConfirmPassword, setIsConfirmPassword] = useState<boolean>(true);
+  const [isPasswordMatch, setIsPasswordMatch] = useState(false);
+  const [isEligible, setIsEligible] = useState(false);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
+  const [isStrongPassword, setIsStrongPassword] = useState<boolean>(false);
+  const [signUpData, setSignUpData] = useState<SignUpDataType>({
     name: "",
     dob: "",
     phone: "",
@@ -32,10 +41,54 @@ const SignUPView = () => {
     );
   };
 
-  const singUp = (event: React.MouseEvent<HTMLDivElement>) => {
+  useEffect(() => {
+    setIsStrongPassword(
+      passwordStrengthController(signUpData.password).isStrong
+    );
+
+    if (
+      signUpData.password === signUpData.confirmPassword &&
+      signUpData.password &&
+      signUpData.confirmPassword
+    ) {
+      setIsPasswordMatch(true);
+    } else {
+      setIsPasswordMatch(false);
+    }
+
+    if (!isStrongPassword || !isPasswordMatch || !isChecked) {
+      setIsButtonDisabled(true);
+    } else {
+      setIsButtonDisabled(false);
+    }
+
+    if (signUpData.dob) {
+      const year = new Date(signUpData.dob).getFullYear();
+      const curretYear = new Date().getFullYear();
+      const age = curretYear - year;
+
+      age > 18
+        ? setIsEligible(true)
+        : alert("Your age must be 18 years or greater");
+    }
+  }, [signUpData, isChecked]);
+
+  // ------------------- [Signup Section] ----------------------------
+
+  const singUp = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (isFormValid()) {
       event.preventDefault();
-      console.log(signUpData);
+      if (!isStrongPassword) {
+        alert("Please Make sure yous password is strong");
+      } else if (!isPasswordMatch) {
+        alert("Password don't Match");
+      } else if (!isChecked) {
+        alert("Please Accept Terms and Conditions to continue");
+      } else if (!isEligible) {
+        alert("Your age must be 18 years or greater");
+      } else {
+        console.log(signUpData);
+      }
     }
   };
 
@@ -101,12 +154,21 @@ const SignUPView = () => {
             isPassword={isConfirmPassword}
           />
         </div>
-        <div onClick={singUp}>
-          <BaseButton
-            title="Create Account"
-            className="w-full xs:w-fit font-bold mt-5 mb-2"
-          />
-        </div>
+        <StrongPasswordChecker
+          isPasswordMatch={isPasswordMatch}
+          controls={passwordStrengthController(signUpData.password)}
+        />
+        <CheckBox
+          onClick={() => setIsChecked(!isChecked)}
+          title="Accept Terms & Coditions"
+          className="my-2"
+        />
+        <BaseButton
+          disabled={isButtonDisabled}
+          OnClick={singUp}
+          title="Create Account"
+          className="w-full xs:w-fit font-bold mb-2"
+        />
 
         <p className="mt-3 font-bold">
           Already have an account?
