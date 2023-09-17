@@ -20,6 +20,16 @@ import {
   faCheck,
   faDotCircle,
   faCircleCheck,
+  faEllipsisVertical,
+  faBookmark,
+  faPencil,
+  faLink,
+  faTrash,
+  faThumbsUp,
+  faComment,
+  faShare,
+  faReply,
+  faPaperPlane
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -42,5 +52,15 @@ library.add(
   faEye,
   faCheck,
   faDotCircle,
-  faCircleCheck
+  faCircleCheck,
+  faEllipsisVertical,
+  faBookmark,
+  faPencil,
+  faLink,
+  faTrash,
+  faThumbsUp,
+  faComment,
+  faShare,
+  faReply,
+  faPaperPlane
 );
