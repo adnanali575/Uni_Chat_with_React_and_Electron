@@ -6,7 +6,7 @@ import "./font-wesome.ts";
 import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <div className="min-h-screen pt-[105px] xs:pt-[113px] md:pt-[0px] bg-gray-bg">
+  <div className="min-h-screen  bg-gray-bg">
     <React.StrictMode>
       <App />
     </React.StrictMode>
