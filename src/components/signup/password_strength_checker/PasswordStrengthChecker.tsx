@@ -11,13 +11,14 @@ const StrongPasswordChecker: React.FC<StrongPasswordCheckerProps> = ({
   isPasswordMatch,
 }) => {
   const {
-    isWeak,
-    isGood,
-    isStrong,
+    isPasswordWeak,
+    isPasswordGood,
+    isPasswordStrong,
     strongLength,
     specialCharacter,
     uppercaseLetters,
     lowercaseLetters,
+    number,
   } = controls;
 
   return (
@@ -25,11 +26,11 @@ const StrongPasswordChecker: React.FC<StrongPasswordCheckerProps> = ({
       <div className={`w-full bg-gray rounded-full`}>
         <div
           className={`${
-            isWeak
+            isPasswordWeak
               ? `bg-red w-[33.3%]`
-              : isGood
+              : isPasswordGood
               ? `bg-yellow w-[60.6%]`
-              : isStrong
+              : isPasswordStrong
               ? `bg-blue w-full`
               : `w-0`
           } h-2 rounded-full transition-all duration-500`}
@@ -49,6 +50,7 @@ const StrongPasswordChecker: React.FC<StrongPasswordCheckerProps> = ({
           control={lowercaseLetters}
           title="At Least 1 Lower Letter."
         />
+        <StrengthSteps control={number} title="At Least 1 number." />
         <StrengthSteps control={isPasswordMatch} title="Password Match." />
       </div>
     </div>

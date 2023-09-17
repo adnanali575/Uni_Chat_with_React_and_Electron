@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BaseButton from "../components/BaseButton";
 import BaseInput from "../components/BaseInput";
 
 const LoginView = () => {
-  const [isPassword, setIsPassword] = useState(true);
+  const [isPassword, setIsPassword] = useState<boolean>(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
   const [logInData, setLogInData] = useState({ email: "", password: "" });
 
   const handleChange = (fieldName: string, value: string) => {
@@ -14,7 +15,13 @@ const LoginView = () => {
     return logInData.email && logInData.password;
   };
 
-  const logIn = (event: React.MouseEvent<HTMLDivElement>) => {
+  useEffect(() => {
+    setIsButtonDisabled(isFormValid() ? false : true);
+  }, [logInData]);
+
+  // ------------------- [Login Section] ----------------------------
+
+  const logIn = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (isFormValid()) {
       event.preventDefault();
       console.log(logInData);
@@ -22,8 +29,8 @@ const LoginView = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white xs:bg-gray flex justify-center items-center">
-      <form className="flex flex-col gap-3 bg-white w-11/12 xs:w-[400px] px-4 xs:px-6 py-8 rounded shadow-none xs:shadow-md">
+    <div className="min-h-screen bg-white xs:bg-gray-bg flex justify-center items-center">
+      <form className="flex flex-col gap-3 bg-white w-11/12 xs:w-[400px] px-4 xs:px-6 py-8 rounded shadow-none xs:shadow-lg">
         <h1 className="font-extrabold text-2xl text-center mb-4">
           Log in Here
         </h1>
@@ -47,14 +54,23 @@ const LoginView = () => {
           toggleType={() => setIsPassword(!isPassword)}
           isPassword={isPassword}
         />
-        <div onClick={logIn}>
-          <BaseButton title="Login" styles="w-full py-3 mt-3" />
-        </div>
+        <BaseButton
+          disabled={isButtonDisabled}
+          OnClick={logIn}
+          title="Login"
+          className="w-full font-bold mb-3"
+        />
+        <p className="text-text-gray font-bold text-sm">
+          Forgot Password?
+          <a href="#" className="text-green-1 hover:underline ms-1">
+            Reset Password
+          </a>
+        </p>
 
-        <p className="font-bold">
+        <p className="font-bold text-text-gray text-sm">
           Don't have an account?
-          <a href="#" className="text-blue-primary underline ms-1">
-            Sing Up
+          <a href="#" className="text-green-1 hover:underline ms-1">
+            Create Account
           </a>
         </p>
       </form>

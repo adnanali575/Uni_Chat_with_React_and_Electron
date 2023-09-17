@@ -18,6 +18,8 @@ const SearchBox = () => {
     }
   };
 
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
   useEffect(() => {
     window.addEventListener("mousedown", handleClickOutside);
 
@@ -36,7 +38,7 @@ const SearchBox = () => {
         ref={dropdownRef}
         className={`${
           isOpen
-            ? `shadow-header absolute inset-0  flex-col w-full xs:w-[300px] justify-start h-[80vh]  xs:h-[300px] bg-white`
+            ? `shadow-header absolute inset-0  flex-col w-full xs:w-[300px] justify-start h-fit bg-white`
             : `h-fit md:h-[57px] lg:w-[300px] items-center`
         } flex px-4 xs:px-2 py-2  transition-all duration-300`}
       >
@@ -57,11 +59,16 @@ const SearchBox = () => {
           />
         </div>
         {isOpen && (
-          <>
-            <p className="text-sm grow text-gray-500 py-2">Recent</p>
-            <div className="flex flex-col justify-between h-full">
-              <div>
-                <div className="flex items-center justify-between hover:bg-greenish-gray cursor-pointer p-2 rounded-md">
+          <div className="flex flex-col justify-between h-[70vh] xs:h-[300px]">
+            <p className="text-sm text-gray-500 py-2">Recent</p>
+
+            {/* ------------------------------------------------------------------------------------- */}
+            <div className="bg-white grow overflow-x-hidden overflow-y-auto">
+              {arr.map((e) => (
+                <div
+                  key={e}
+                  className="flex items-center justify-between hover:bg-greenish-gray cursor-pointer p-2 rounded-md"
+                >
                   <div className="flex w-[40px] h-[40px] rounded-full aspect-square overflow-hidden">
                     <img
                       className="w-full"
@@ -76,27 +83,13 @@ const SearchBox = () => {
                     <FontAwesomeIcon icon="close" />
                   </span>
                 </div>
-                <div className="flex items-center justify-between hover:bg-greenish-gray cursor-pointer p-2 rounded-md">
-                  <div className="flex w-[40px] h-[40px] rounded-full aspect-square overflow-hidden">
-                    <img
-                      className="w-full"
-                      src="https://i.pinimg.com/564x/b1/04/44/b10444b33c057da635bb221987230355.jpg"
-                    />
-                  </div>
-                  <div className="grow px-3">
-                    <p className="text-sm font-bold">Uni chat user</p>
-                    <p className="text-xs text-gray-500">12 june 2023</p>
-                  </div>
-                  <span className="w-[25px] h-[25px] hover:bg-light-green hover:text-green active:bg-greenish-gray text-[15px] flex items-center justify-center cursor-pointer transition-default rounded-full">
-                    <FontAwesomeIcon icon="close" />
-                  </span>
-                </div>
-              </div>
-              <p className="text-center text-sm text-green p-2 hover:bg-light-green rounded-md cursor-pointer transition-default">
-                View all Recents
-              </p>
+              ))}
             </div>
-          </>
+            <hr className="text-gray mb-2" />
+            <p className="text-center flex flex-col text-sm text-green p-2 bg-white hover:bg-light-green rounded-md cursor-pointer transition-default">
+              View all Recents
+            </p>
+          </div>
         )}
       </div>
     </>

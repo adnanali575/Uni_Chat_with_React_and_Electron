@@ -7,6 +7,7 @@ export default {
       black: "#000",
       gray: "#e9e9e9",
       "gray-1": "#c2c2c2",
+      "gray-bg": "#f8f9fe",
       blue: "#0097ff",
       red: "#ff0000",
       yellow: "#ffe400",

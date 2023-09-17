@@ -36,7 +36,7 @@ const DynamicDropDown: React.FC<DropdownProps> = ({
 
   return (
     <div
-      className={`absolute w-[350px] shadow-md rounded-md p-9 bg-white top-[55px] right-0 ${
+      className={`absolute w-[350px] translate-down-animation shadow-md rounded-md p-9 bg-white top-[55px] right-0 ${
         isDropdownOpen ? "block" : "hidden"
       }`}
       ref={dropdownRef}

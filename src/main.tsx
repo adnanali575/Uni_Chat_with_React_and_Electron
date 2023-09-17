@@ -6,7 +6,7 @@ import "./font-wesome.ts";
 import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <div className="min-h-screen pt-[105px] xs:pt-[113px] md:pt-[57px] bg-[#f0f2f5]">
+  <div className="min-h-screen pt-[105px] xs:pt-[113px] md:pt-[0px] bg-gray-bg">
     <React.StrictMode>
       <App />
     </React.StrictMode>
@@ -17,6 +17,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 postMessage({ payload: "removeLoading" }, "*");
 
 // Use contextBridge
-window.ipcRenderer.on("main-process-message", (_event, message) => {
-  console.log(message);
-});
+// window.ipcRenderer.on("main-process-message", (_event, message) => {
+//   console.log(message);
+// });

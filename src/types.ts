@@ -18,11 +18,12 @@ export interface SignUpDataType {
 }
 
 export interface passwordStrengthControllerType {
-  isStrong: boolean;
-  isGood: boolean;
-  isWeak: boolean;
+  isPasswordStrong: boolean;
+  isPasswordGood: boolean;
+  isPasswordWeak: boolean;
   specialCharacter: boolean;
   uppercaseLetters: boolean;
   lowercaseLetters: boolean;
+  number: boolean;
   strongLength: boolean;
 }

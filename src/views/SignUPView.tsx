@@ -41,13 +41,14 @@ const SignUPView = () => {
       signUpData.phone &&
       signUpData.email &&
       signUpData.password &&
-      signUpData.confirmPassword
+      signUpData.confirmPassword &&
+      isPasswordMatch
     );
   };
 
   useEffect(() => {
     setIsStrongPassword(
-      passwordStrengthController(signUpData.password).isStrong
+      passwordStrengthController(signUpData.password).isPasswordStrong
     );
 
     if (
@@ -60,10 +61,10 @@ const SignUPView = () => {
       setIsPasswordMatch(false);
     }
 
-    if (!isStrongPassword || !isPasswordMatch || !isChecked) {
-      setIsButtonDisabled(true);
-    } else {
+    if (isStrongPassword && isChecked && isFormValid()) {
       setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
     }
 
     if (signUpData.dob) {
@@ -92,8 +93,8 @@ const SignUPView = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-white xs:bg-gray flex justify-center items-center">
-        <form className="bg-white w-full xs:w-[500px] my-11 md:my-0 md:w-[700px] px-6 xs:px-8 py-8 rounded shadow-none xs:shadow-md">
+      <div className="min-h-screen py-4 bg-white xs:bg-gray-bg flex justify-center items-center">
+        <form className="bg-white w-full xs:w-[500px] my-11 md:my-0 md:w-[700px] px-6 xs:px-8 py-8 rounded shadow-none xs:shadow-lg">
           <h1 className="font-extrabold text-2xl text-center mb-4">Register</h1>
           <div className="flex flex-col md:grid grid-cols-2 gap-6">
             <BaseInput
@@ -171,7 +172,7 @@ const SignUPView = () => {
 
           <p className="mt-3 font-bold">
             Already have an account?
-            <a href="#" className="text-blue-primary underline ms-1">
+            <a href="#" className="text-green-1 underline ms-1">
               Login
             </a>
           </p>
