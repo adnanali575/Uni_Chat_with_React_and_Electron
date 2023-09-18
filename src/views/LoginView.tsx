@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import BaseButton from "../components/BaseButton";
 import BaseInput from "../components/BaseInput";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import {
+  auth,
+  signInWithEmailAndPassword,
+} from "../../src/firebase/firebaseConfig";
 
 const LoginView = () => {
   const [isPassword, setIsPassword] = useState<boolean>(true);
@@ -26,10 +31,21 @@ const LoginView = () => {
   const logIn = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (isFormValid()) {
       event.preventDefault();
-      console.log(logInData);
       setIsButtonLoading(true);
+
+      signInWithEmailAndPassword(auth, logInData.email, logInData.password)
+        .then((userCredential) => {
+          setIsButtonLoading(false);
+          console.log("Logged In Successfully", userCredential.user);
+        })
+        .catch((error) => {
+          setIsButtonLoading(false);
+          toast.error(error.code);
+        });
     }
   };
+
+  useEffect(() => {}, []);
 
   return (
     <div className="min-h-screen bg-white xs:bg-gray-bg flex justify-center items-center">
@@ -78,6 +94,7 @@ const LoginView = () => {
           </Link>
         </p>
       </form>
+      <ToastContainer />
     </div>
   );
 };
