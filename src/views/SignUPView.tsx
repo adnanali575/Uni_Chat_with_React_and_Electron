@@ -8,6 +8,13 @@ import { SignUpDataType } from "../types";
 
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import {
+  setDoc,
+  doc,
+  db,
+  auth,
+  createUserWithEmailAndPassword,
+} from "../firebase/firebaseConfig";
 
 const SignUPView = () => {
   const [isPassword, setIsPassword] = useState<boolean>(true);
@@ -46,6 +53,38 @@ const SignUPView = () => {
     );
   };
 
+  // ------------------- [Signup Section] ----------------------------
+
+  const singUp = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (isFormValid()) {
+      event.preventDefault();
+      if (!isEligible) {
+        toast.warning("Your age must be 18 years or greater");
+      } else {
+        setIsButtonLoading(true);
+
+        createUserWithEmailAndPassword(
+          auth,
+          signUpData.email,
+          signUpData.password
+        )
+          .then(async (userCredential) => {
+            setIsButtonLoading(false);
+            const user = userCredential.user;
+            console.log("User signed up:", user);
+
+            await setDoc(doc(db, "users", user.uid), signUpData);
+          })
+          .catch((error) => {
+            toast.error(error.code);
+            setIsButtonLoading(false);
+          });
+      }
+    }
+  };
+
+  // ------------------- [ useEffect ] ----------------------------
+
   useEffect(() => {
     setIsStrongPassword(
       passwordStrengthController(signUpData.password).isPasswordStrong
@@ -77,20 +116,6 @@ const SignUPView = () => {
         : toast.warning("Your age must be 18 years or greater");
     }
   }, [signUpData, isChecked]);
-
-  // ------------------- [Signup Section] ----------------------------
-
-  const singUp = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (isFormValid()) {
-      event.preventDefault();
-      if (!isEligible) {
-        toast.warning("Your age must be 18 years or greater");
-      } else {
-        console.log(signUpData);
-        setIsButtonLoading(true);
-      }
-    }
-  };
 
   return (
     <>

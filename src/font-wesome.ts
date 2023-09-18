@@ -29,7 +29,8 @@ import {
   faComment,
   faShare,
   faReply,
-  faPaperPlane
+  faPaperPlane,
+  faRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -62,5 +63,6 @@ library.add(
   faComment,
   faShare,
   faReply,
-  faPaperPlane
+  faPaperPlane,
+  faRightFromBracket
 );

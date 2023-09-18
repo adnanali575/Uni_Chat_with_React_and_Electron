@@ -26,7 +26,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="w-full h-fit md:h-[57px] z-10 fixed top-0 bg-white py-2 flex flex-col md:flex-row md:justify-between md:items-center px-6 shadow-header">
+      <div className="w-full h-fit md:h-[57px] z-10 fixed top-0 bg-white flex flex-col md:flex-row md:justify-between md:items-center px-6 shadow-header">
         <div className="flex justify-between items-center px-0 xs:px-4 md:px-0">
           <div className="flex items-center gap-1 pe-3 w-fit lg:w-[288px]">
             <div className="w-[40px] h-[40px] aspect-square">
@@ -34,7 +34,7 @@ const Header = () => {
             </div>
             <SearchBox />
           </div>
-          <div className="flex gap-3 md:hidden">
+          <div className="flex py-2 gap-3 md:hidden">
             <SlidUpWindow
               isShow={isSlideDownOpen}
               setIsShow={() => setIsSlideDownOpen(!isSlideDownOpen)}

@@ -2,9 +2,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import HeaderMenuIcon from "../header/HeaderMenuIcon";
 import SidebarIcons from "./SidebarIcons";
+import { auth, signOut } from "../../../src/firebase/firebaseConfig";
+import { ToastContainer, toast } from "react-toastify";
 
 const SideBarMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("Signout Successfully");
+      })
+      .catch((error) => {
+        toast.error(error.code);
+      });
+  };
+
   return (
     <>
       <div>
@@ -32,9 +45,17 @@ const SideBarMenu = () => {
             <SidebarIcons icon="user" label="Profile Setting" />
             <SidebarIcons icon="floppy-disk" label="Saved" />
             <SidebarIcons icon="palette" label="Display Settings" />
+            <button onClick={logout} className="text-start">
+              <SidebarIcons
+                icon="right-from-bracket"
+                label="Logout"
+                className="text-red hover:text-red"
+              />
+            </button>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };
