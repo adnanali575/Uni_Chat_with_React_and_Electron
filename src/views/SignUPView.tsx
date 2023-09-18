@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import BaseButton from "../components/BaseButton";
 import BaseInput from "../components/BaseInput";
 import StrongPasswordChecker from "../components/signup/password_strength_checker/PasswordStrengthChecker";
@@ -6,9 +6,8 @@ import { passwordStrengthController } from "../../src/helpers";
 import CheckBox from "../components/CheckBox";
 import { SignUpDataType } from "../types";
 
-import React from "react";
-
 import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const SignUPView = () => {
   const [isPassword, setIsPassword] = useState<boolean>(true);
@@ -18,6 +17,7 @@ const SignUPView = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
   const [isStrongPassword, setIsStrongPassword] = useState<boolean>(false);
+  const [isBUttonLoading, setIsButtonLoading] = useState<boolean>(false);
   const [signUpData, setSignUpData] = useState<SignUpDataType>({
     name: "",
     dob: "",
@@ -87,6 +87,7 @@ const SignUPView = () => {
         toast.warning("Your age must be 18 years or greater");
       } else {
         console.log(signUpData);
+        setIsButtonLoading(true);
       }
     }
   };
@@ -164,6 +165,7 @@ const SignUPView = () => {
             className="my-2"
           />
           <BaseButton
+            loading={isBUttonLoading}
             disabled={isButtonDisabled}
             OnClick={singUp}
             title="Create Account"
@@ -172,9 +174,9 @@ const SignUPView = () => {
 
           <p className="mt-3 font-bold">
             Already have an account?
-            <a href="#" className="text-green-1 underline ms-1">
+            <Link to="/login" className="text-green-1 hover:underline ms-1">
               Login
-            </a>
+            </Link>
           </p>
         </form>
       </div>

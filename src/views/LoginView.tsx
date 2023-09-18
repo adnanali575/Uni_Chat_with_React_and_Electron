@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import BaseButton from "../components/BaseButton";
 import BaseInput from "../components/BaseInput";
+import { Link } from "react-router-dom";
 
 const LoginView = () => {
   const [isPassword, setIsPassword] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
+  const [isBUttonLoading, setIsButtonLoading] = useState<boolean>(false);
   const [logInData, setLogInData] = useState({ email: "", password: "" });
 
   const handleChange = (fieldName: string, value: string) => {
@@ -25,6 +27,7 @@ const LoginView = () => {
     if (isFormValid()) {
       event.preventDefault();
       console.log(logInData);
+      setIsButtonLoading(true);
     }
   };
 
@@ -55,6 +58,7 @@ const LoginView = () => {
           isPassword={isPassword}
         />
         <BaseButton
+          loading={isBUttonLoading}
           disabled={isButtonDisabled}
           OnClick={logIn}
           title="Login"
@@ -69,9 +73,9 @@ const LoginView = () => {
 
         <p className="font-bold text-text-gray text-sm">
           Don't have an account?
-          <a href="#" className="text-green-1 hover:underline ms-1">
+          <Link to="/signup" className="text-green-1 hover:underline ms-1">
             Create Account
-          </a>
+          </Link>
         </p>
       </form>
     </div>

@@ -13,10 +13,11 @@ const DotsDropDown: React.FC = () => {
 
   const dropdownContent = (
     <ul
-      className={`py-3 rounded-md absolute shadow-md bg-white w-[200px] right-[-16px] top-[-11px]`}
+      className={`translate-down-animation py-3 rounded-md absolute shadow-md bg-white w-[200px] right-[-16px] top-[-11px]`}
     >
-      {listItems.map((item) => (
+      {listItems.map((item, i) => (
         <li
+          key={i}
           className={` py-2 px-4 hover:bg-light-green hover:text-green-1 active:bg-none cursor-pointer transition-default`}
         >
           <FontAwesomeIcon icon={item.icon as IconProp} className="mr-3" />

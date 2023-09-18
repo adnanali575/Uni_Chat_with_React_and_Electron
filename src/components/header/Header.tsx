@@ -50,16 +50,32 @@ const Header = () => {
         </div>
 
         <div className="flex justify-between gap-3 mt-2 md:mt-0 md:me-3">
-          <HeaderMenuIcon icon="house" />
-          <HeaderMenuIcon icon="user-group" />
-          <HeaderMenuIcon icon="video" />
-          <HeaderMenuIcon icon="bell" className="block md:hidden" />
-          <HeaderMenuIcon icon="floppy-disk" className="hidden md:block" />
-          <HeaderMenuIcon icon="gear" className="hidden md:block" />
+          <HeaderMenuIcon path="/" icon="house" title="Home" />
+          <HeaderMenuIcon
+            path="/login"
+            icon="user-group"
+            title="Friend Requests"
+          />
+          <HeaderMenuIcon path="/signup" icon="video" title="Videos" />
+          <HeaderMenuIcon
+            icon="bell"
+            className="block md:hidden"
+            title="Notifications"
+          />
+          <HeaderMenuIcon
+            icon="bookmark"
+            className="hidden md:flex"
+            title="Bookmarks"
+          />
+          <HeaderMenuIcon
+            icon="gear"
+            className="hidden md:flex"
+            title="Settings"
+          />
 
           <SideBarMenu />
         </div>
-        <div className="hidden md:block">
+        <div className="hidden md:flex">
           <div className="flex items-center gap-3">
             <SlidUpWindow
               isShow={isSlideDownOpen}

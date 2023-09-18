@@ -70,7 +70,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       >
         <div className="flex justify-between px-4 py-4 ">
           <div className="flex cursor-pointer">
-            <div className="w-[60px] h-[60px] rounded-full overflow-hidden flex items-center justify-center">
+            <div className="w-[50px] h-[50px] rounded-full overflow-hidden flex items-center justify-center">
               <img className="w-full h-fit" src={post.profileImageUrl} />
             </div>
             <div className="px-2">
@@ -96,7 +96,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <img className="w-full" src={post.postImageUrl} />
           )}
           {/* -------------------------------------------------------------------------------------------- */}
-          {post.postVideoUrl?.length && (
+          { post.postVideoUrl?.length != null && post.postVideoUrl?.length > 0 && (
             <iframe
               className="w-full h-[400px]"
               src={post.postVideoUrl}

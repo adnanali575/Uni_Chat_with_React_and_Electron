@@ -88,15 +88,16 @@ const CommentBox: React.FC<ChildProps> = ({ isGrow }) => {
           <hr className={`text-gray`} />
           <div className={`px-4 flex items-center`}>
             <div
-              className={`hover:bg-light-green mr-1 hover:text-green-1 flex items-center justify-center rounded-full text-md w-[36px] h-[36px] aspect-square ms-1 cursor-pointer transition-default`}
+              className={`hover:bg-light-green bg-gray-bg mr-1 hover:text-green-1 flex items-center justify-center rounded-full text-md w-[36px] h-[36px] aspect-square ms-1 cursor-pointer transition-default`}
             >
               😉
             </div>
-            <textarea
-              className={`border border-gray focus:border-green-1 my-3 h-[36px] w-full rounded-md transition-all duration-200 px-2 py-1 outline-none`}
+            <input
+              placeholder="Write a comment..."
+              className={`text-sm focus:bg-greenish-gray bg-gray-bg my-3 px-4 py-2 w-full rounded-3xl transition-default outline-none`}
             />
             <div
-              className={`hover:bg-light-green hover:text-green-1 flex items-center justify-center rounded-full text-md w-[36px] h-[36px] aspect-square ms-1 cursor-pointer transition-default`}
+              className={`hover:bg-light-green bg-gray-bg hover:text-green-1 flex items-center justify-center rounded-full text-md w-[36px] h-[36px] aspect-square ms-1 cursor-pointer transition-default`}
             >
               <FontAwesomeIcon icon="paper-plane" />
             </div>
