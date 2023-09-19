@@ -30,7 +30,8 @@ import {
   faShare,
   faReply,
   faPaperPlane,
-  faRightFromBracket
+  faRightFromBracket,
+  faUpload
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -64,5 +65,6 @@ library.add(
   faShare,
   faReply,
   faPaperPlane,
-  faRightFromBracket
+  faRightFromBracket,
+  faUpload
 );

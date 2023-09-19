@@ -56,7 +56,7 @@ function App() {
           element: <LoginView />,
         },
       ],
-    },
+  },
   ]);
 
   return <RouterProvider router={routes} />;
