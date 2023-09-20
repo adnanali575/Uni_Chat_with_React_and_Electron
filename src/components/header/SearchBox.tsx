@@ -1,9 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SearchBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const location = useLocation();
 
   const closeDropdown = () => {
     setIsOpen(false);
@@ -27,6 +31,10 @@ const SearchBox = () => {
       window.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
 
   return (
     <>
@@ -86,9 +94,12 @@ const SearchBox = () => {
               ))}
             </div>
             <hr className="text-gray mb-2" />
-            <p className="text-center flex flex-col text-sm text-green p-2 bg-white hover:bg-light-green rounded-md cursor-pointer transition-default">
+            <Link
+              to="/search-history"
+              className="text-center flex flex-col text-sm text-green p-2 bg-white hover:bg-light-green rounded-md cursor-pointer transition-default"
+            >
               View all Recents
-            </p>
+            </Link>
           </div>
         )}
       </div>

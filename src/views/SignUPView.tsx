@@ -115,6 +115,12 @@ const SignUPView = () => {
         ? setIsEligible(true)
         : toast.warning("Your age must be 18 years or greater");
     }
+
+    const array = [1, 4, 5, 6, 7, 62, 323];
+
+    const newArrA = array.map((ele) => (ele === 4 ? ele + 4 : ele));
+    console.log(array);
+    console.log(newArrA);
   }, [signUpData, isChecked]);
 
   return (

@@ -29,17 +29,15 @@ const PostWindow = () => {
         </h1>
         <textarea
           placeholder="Write post description here..."
-          className="resize-none outline-none p-2 my-4 min-h-[150px] w-full border border-gray-1 rounded-md"
+          className="resize-none outline-none p-2 my-4 min-h-[150px] w-full border border-gray-1 rounded-md focus:border-green-1 transition-default "
         ></textarea>
         <div className="w-full">
           <label
             htmlFor="image-input"
-            className="flex justify-center items-center rounded-md w-full h-[50px] border border-gray-1 cursor-pointer hover:bg-greenish-gray active:bg-white transition-default"
+            className="flex items-center justify-center gap-3 cursor-pointer border-dashed border-2 border-gray-1 w-full h-[50px] text-text-gray hover:bg-greenish-gray active:bg-white transition-default"
           >
-            <span className="flex items-center gap-3 text-text-gray">
-              <FontAwesomeIcon icon="upload" />
-              <p>Upload Photo or Video</p>
-            </span>
+            <FontAwesomeIcon icon="upload" />
+            <p>Upload Photo or Video</p>
           </label>
           <input
             onChange={getFile}

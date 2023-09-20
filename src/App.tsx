@@ -7,6 +7,7 @@ import { onAuthStateChanged, auth } from "../src/firebase/firebaseConfig";
 
 import * as React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import SearchHistory from "./views/SearchHistory";
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -55,8 +56,12 @@ function App() {
           path: "/login",
           element: <LoginView />,
         },
+        {
+          path: "/search-history",
+          element: <SearchHistory />,
+        },
       ],
-  },
+    },
   ]);
 
   return <RouterProvider router={routes} />;

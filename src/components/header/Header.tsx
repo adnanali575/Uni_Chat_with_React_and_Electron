@@ -3,7 +3,7 @@ import Profile from "../Profile";
 import SideBarMenu from "../SidebarMenu/SideBarMenu";
 import SlidUpWindow from "../SlidUpWindow";
 import HeaderMenuIcon from "./HeaderMenuIcon";
-import PostWindow from "./PostWindow";
+import PostWindow from "../post/PostWindow";
 import RightMenuIcons from "./RightMenuIcons";
 import SearchBox from "./SearchBox";
 import DynamicDropDown from "../DynamicDropDown";
