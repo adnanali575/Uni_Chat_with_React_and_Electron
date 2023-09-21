@@ -30,7 +30,7 @@ const PostWindow = () => {
           ></textarea>
           <FileUploader />
         </div>
-        <div className="w-full bg-white p-2 border-t border-gray-1 flex justify-end">
+        <div className="w-full z-50 shadow-white-glow bg-white p-2 border-t border-gray-1 flex justify-end">
           <BaseButton OnClick={publishPost} title="Publish" />
         </div>
       </div>

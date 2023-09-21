@@ -47,7 +47,7 @@ const FileUploader: React.FC = () => {
         </label>
       </div>
       {selectedImages.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border overflow-hidden border-gray-1 rounded-md my-4 p-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border overflow-hidden border-gray-1 rounded-md my-4 p-3">
           {selectedImages.map((image) => (
             <div className="relative w-fit rounded-md overflow-hidden cursor-pointer">
               <img
