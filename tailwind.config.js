@@ -16,6 +16,8 @@ export default {
       "light-green": "#e3f9ec",
       "greenish-gray": "#f2f7f2",
       "text-gray": "#606266",
+      "black-transparent": "#00000057",
+      "white-transparent": "#ffffff57",
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
