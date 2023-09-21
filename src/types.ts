@@ -27,3 +27,13 @@ export interface passwordStrengthControllerType {
   number: boolean;
   strongLength: boolean;
 }
+
+export interface postType {
+  postText?: string;
+  postImages?: string[];
+  ownerName?: string;
+  ownerId?: string;
+  postId?: string;
+  publishDate?: Date;
+  sheduledDate?: Date;
+}
