@@ -1,13 +1,32 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
-const FileUploader: React.FC = () => {
+interface FileUpladerType {
+  handleFiles: (files: File[]) => void;
+}
+
+const FileUploader: React.FC<FileUpladerType> = ({ handleFiles }) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const files = Array.from(event.target.files);
-      setSelectedFiles(files);
+      const newFiles: File[] = [];
+      files.forEach((file) => {
+        if (
+          file.type == "image/png" ||
+          file.type == "image/jpeg" ||
+          file.type == "image/jpg" ||
+          file.type == "video/mp4"
+        ) {
+          newFiles.push(file);
+        }
+      });
+      setSelectedFiles((prevSelectedFiles) => [
+        ...prevSelectedFiles,
+        ...newFiles,
+      ]);
+      handleFiles(newFiles);
     }
   };
 
@@ -34,13 +53,19 @@ const FileUploader: React.FC = () => {
           {selectedFiles.map((file, index) => (
             <div
               key={index}
-              className="relative w-fit rounded-md overflow-hidden cursor-pointer"
+              className="relative w-fit h-auto sm:h-[110px] flex items-center justify-center rounded-md overflow-hidden cursor-pointer"
             >
-              <img
-                src={URL.createObjectURL(file)}
-                className="w-full h-auto sm:w-auto sm:h-[150px]"
-                alt="Uploaded Image"
-              />
+              {file.type === "video/mp4" ? (
+                <video>
+                  <source src={URL.createObjectURL(file)} type="video/mp4" />
+                </video>
+              ) : (
+                <img
+                  src={URL.createObjectURL(file)}
+                  className="w-full sm:w-auto h-[150px] sm:h-auto"
+                  alt="Uploaded Image"
+                />
+              )}
               <div className="w-full h-full flex justify-end opacity-0 hover:opacity-100 bg-black-transparent text-white absolute top-0 left-0 transition-default">
                 <span className="mx-3 my-2 bg-white-transparent active:scale-95 h-[30px] w-[30px] rounded-full flex justify-center items-center">
                   <FontAwesomeIcon icon="trash" className="text-red" />
