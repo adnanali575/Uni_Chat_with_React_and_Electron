@@ -2,30 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
 const FileUploader: React.FC = () => {
-  const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-
-    if (files) {
-      const imageArray: string[] = [];
-
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
-
-        reader.onload = (event) => {
-          if (event.target && event.target.result) {
-            imageArray.push(event.target.result as string);
-
-            if (imageArray.length === files.length) {
-              setSelectedImages([...selectedImages, ...imageArray]);
-            }
-          }
-        };
-
-        reader.readAsDataURL(file);
-      }
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const files = Array.from(event.target.files);
+      setSelectedFiles(files);
     }
   };
 
@@ -39,19 +21,23 @@ const FileUploader: React.FC = () => {
           <FontAwesomeIcon icon="upload" />
           <p>Upload Photo or Video</p>
           <input
-            onChange={handleImageChange}
+            onChange={handleFileChange}
             type="file"
+            multiple
             id="image-input"
             className="w-full absolute bottom-0 h-full opacity-0 cursor-pointer"
           />
         </label>
       </div>
-      {selectedImages.length > 0 && (
+      {setSelectedFiles.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border overflow-hidden border-gray-1 rounded-md my-4 p-3">
-          {selectedImages.map((image) => (
-            <div className="relative w-fit rounded-md overflow-hidden cursor-pointer">
+          {selectedFiles.map((file, index) => (
+            <div
+              key={index}
+              className="relative w-fit rounded-md overflow-hidden cursor-pointer"
+            >
               <img
-                src={image}
+                src={URL.createObjectURL(file)}
                 className="w-full h-auto sm:w-auto sm:h-[150px]"
                 alt="Uploaded Image"
               />
