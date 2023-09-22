@@ -1,22 +1,31 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeaderMenuIcon from "../header/HeaderMenuIcon";
 import SidebarIcons from "./SidebarIcons";
 import { auth, signOut } from "../../../src/firebase/firebaseConfig";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const SideBarMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const logout = () => {
     signOut(auth)
       .then(() => {
+        navigate("/login");
         console.log("Signout Successfully");
       })
       .catch((error) => {
         toast.error(error.code);
       });
   };
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
 
   return (
     <>
@@ -41,10 +50,10 @@ const SideBarMenu = () => {
             </button>
           </div>
           <div className="flex flex-col gap-2">
-            <SidebarIcons icon="gear" label="Settings" />
-            <SidebarIcons icon="user" label="Profile Setting" />
-            <SidebarIcons icon="floppy-disk" label="Saved" />
-            <SidebarIcons icon="palette" label="Display Settings" />
+            <SidebarIcons path="/settings" icon="gear" label="Settings" />
+            <SidebarIcons path="/login" icon="user" label="Profile Setting" />
+            <SidebarIcons path="/signup" icon="floppy-disk" label="Saved" />
+            <SidebarIcons path="/" icon="palette" label="Display Settings" />
             <button onClick={logout} className="text-start">
               <SidebarIcons
                 icon="right-from-bracket"

@@ -24,11 +24,10 @@ const BaseButton: React.FC<ButtonProps> = ({
         disabled
           ? `bg-gray-1 text-text-gray cursor-not-allowed`
           : `text-white bg-green-1 hover:bg-green active:bg-green-1`
-      }
-      font-bold  text-base
-  transition-default bg-blue-primary  px-5 py-2 rounded-md`}
+      } ${loading ? `animate-pulse duration-100` : ``}
+      font-bold  text-base transition-default bg-blue-primary  px-5 py-2 rounded-md`}
     >
-      <p className={loading ? `animate-pulse duration-100` : ``}>{title}</p>
+      <p>{title}</p>
     </button>
   );
 };

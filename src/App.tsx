@@ -8,6 +8,7 @@ import { onAuthStateChanged, auth } from "../src/firebase/firebaseConfig";
 import * as React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import SearchHistory from "./views/SearchHistory";
+import SettingsView from "./views/SettingsView";
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -59,6 +60,10 @@ function App() {
         {
           path: "/search-history",
           element: <SearchHistory />,
+        },
+        {
+          path: "/settings",
+          element: <SettingsView />,
         },
       ],
     },

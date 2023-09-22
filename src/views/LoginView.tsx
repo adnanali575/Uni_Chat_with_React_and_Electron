@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import BaseButton from "../components/BaseButton";
 import BaseInput from "../components/BaseInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import {
   auth,
@@ -13,6 +13,8 @@ const LoginView = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
   const [isBUttonLoading, setIsButtonLoading] = useState<boolean>(false);
   const [logInData, setLogInData] = useState({ email: "", password: "" });
+
+  const navigate = useNavigate();
 
   const handleChange = (fieldName: string, value: string) => {
     setLogInData((prevData) => ({ ...prevData, [fieldName]: value }));
@@ -36,6 +38,7 @@ const LoginView = () => {
       signInWithEmailAndPassword(auth, logInData.email, logInData.password)
         .then((userCredential) => {
           setIsButtonLoading(false);
+          navigate("/");
           console.log("Logged In Successfully", userCredential.user);
         })
         .catch((error) => {

@@ -68,6 +68,7 @@ const Header = () => {
             title="Bookmarks"
           />
           <HeaderMenuIcon
+            path="/settings"
             icon="gear"
             className="hidden md:flex"
             title="Settings"

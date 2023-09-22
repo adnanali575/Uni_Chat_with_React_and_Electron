@@ -30,7 +30,7 @@ export interface passwordStrengthControllerType {
 
 export interface postType {
   postText?: string;
-  postImages?: string[];
+  postImages?: File[];
   ownerName?: string;
   ownerId?: string;
   postId?: string;

@@ -5,9 +5,8 @@ import StrongPasswordChecker from "../components/signup/password_strength_checke
 import { passwordStrengthController } from "../../src/helpers";
 import CheckBox from "../components/CheckBox";
 import { SignUpDataType } from "../types";
-
 import { ToastContainer, toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   setDoc,
   doc,
@@ -33,6 +32,8 @@ const SignUPView = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const navigate = useNavigate();
 
   const handleInputChange = (fieldName: string, newValue: string) => {
     setSignUpData((prevData) => ({
@@ -72,6 +73,7 @@ const SignUPView = () => {
             setIsButtonLoading(false);
             const user = userCredential.user;
             console.log("User signed up:", user);
+            navigate("/");
 
             await setDoc(doc(db, "users", user.uid), signUpData);
           })
@@ -115,12 +117,6 @@ const SignUPView = () => {
         ? setIsEligible(true)
         : toast.warning("Your age must be 18 years or greater");
     }
-
-    const array = [1, 4, 5, 6, 7, 62, 323];
-
-    const newArrA = array.map((ele) => (ele === 4 ? ele + 4 : ele));
-    console.log(array);
-    console.log(newArrA);
   }, [signUpData, isChecked]);
 
   return (

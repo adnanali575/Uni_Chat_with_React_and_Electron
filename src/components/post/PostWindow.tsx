@@ -4,7 +4,7 @@ import FileUploader from "./FileUplader";
 import { postType } from "../../types";
 
 const PostWindow = () => {
-  const [files, setfiles] = useState<File[]>([]);
+  const [filesData, setfilesData] = useState<File[]>([]);
   const [postData, setPostData] = useState<postType>({
     ownerName: "",
     ownerId: "",
@@ -17,16 +17,16 @@ const PostWindow = () => {
     setPostData({ ...postData, postText: event.target.value });
   };
 
-  console.log(files)
-
   const handleFiles = (files: File[]) => {
-    setfiles(files);
+    setfilesData(files);
+    setPostData({ ...postData, postImages: files });
   };
 
   const publishPost = () => {
-    // setPostData({...postData, postImages: files})
     console.log(postData);
   };
+
+  if (false) filesData;
 
   return (
     <>
