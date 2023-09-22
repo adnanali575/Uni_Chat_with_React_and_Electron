@@ -17,6 +17,8 @@ const PostWindow = () => {
     setPostData({ ...postData, postText: event.target.value });
   };
 
+  console.log(files)
+
   const handleFiles = (files: File[]) => {
     setfiles(files);
   };
