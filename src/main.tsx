@@ -1,15 +1,16 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import "./font-wesome.ts";
 import "react-toastify/dist/ReactToastify.css";
+import { Provider } from "react-redux";
+import store from "./store/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <div className="min-h-screen flex flex-col pt-[105px] xs:pt-[113px] md:pt-[57px] bg-gray-bg">
-    <React.StrictMode>
+    <Provider store={store}>
       <App />
-    </React.StrictMode>
+    </Provider>
   </div>
 );
 

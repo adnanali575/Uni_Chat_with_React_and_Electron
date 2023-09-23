@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import DotsDropDown from "./DotsDropDown";
 import CommentBox from "./CommentBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux/es/exports";
+import { testAction } from "../../store/usersSlice";
 
 interface PostCardProps {
   post: Posts;
@@ -63,6 +65,11 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
     return count;
   };
 
+  const dispatch = useDispatch();
+  const test = () => {
+    dispatch(testAction());
+  };
+
   return (
     <>
       <div
@@ -96,14 +103,15 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <img className="w-full" src={post.postImageUrl} />
           )}
           {/* -------------------------------------------------------------------------------------------- */}
-          { post.postVideoUrl?.length != null && post.postVideoUrl?.length > 0 && (
-            <iframe
-              className="w-full h-[400px]"
-              src={post.postVideoUrl}
-              title="YouTube Video"
-              allowFullScreen
-            ></iframe>
-          )}
+          {post.postVideoUrl?.length != null &&
+            post.postVideoUrl?.length > 0 && (
+              <iframe
+                className="w-full h-[400px]"
+                src={post.postVideoUrl}
+                title="YouTube Video"
+                allowFullScreen
+              ></iframe>
+            )}
         </div>
         {/* -------------------------------------------------------------------------------------------- */}
         {(post.likeCount > 0 ||
@@ -136,6 +144,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <hr className={`text-gray`} />
         <div className={`grid grid-cols-3 w-full`}>
           <button
+            onClick={test}
             className={`active:text-green-1 active:bg-gray-bg py-2 text-center transition-s hover:scale-110 active:scale-100 duration-200 cursor-pointer`}
           >
             <FontAwesomeIcon icon="thumbs-up" className="mr-2" />
