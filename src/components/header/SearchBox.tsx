@@ -75,7 +75,7 @@ const SearchBox = () => {
               {arr.map((e) => (
                 <div
                   key={e}
-                  className="flex items-center justify-between hover:bg-greenish-gray cursor-pointer p-2 rounded-md"
+                  className="flex items-center justify-between hover:bg-blue hover:bg-opacity-10 cursor-pointer p-2 rounded-md"
                 >
                   <div className="flex w-[40px] h-[40px] rounded-full aspect-square overflow-hidden">
                     <img
@@ -87,7 +87,7 @@ const SearchBox = () => {
                     <p className="text-sm font-bold">Uni chat user</p>
                     <p className="text-xs text-gray-500">12 june 2023</p>
                   </div>
-                  <span className="w-[25px] h-[25px] hover:bg-light-green hover:text-green active:bg-greenish-gray text-[15px] flex items-center justify-center cursor-pointer transition-default rounded-full">
+                  <span className="w-[25px] h-[25px] hover:bg-light-green hover:text-blue active:bg-blue active:bg-opacity-20 text-[15px] flex items-center justify-center cursor-pointer transition-default rounded-full">
                     <FontAwesomeIcon icon="close" />
                   </span>
                 </div>
@@ -96,7 +96,7 @@ const SearchBox = () => {
             <hr className="text-gray mb-2" />
             <Link
               to="/search-history"
-              className="text-center flex flex-col text-sm text-green p-2 bg-white hover:bg-light-green rounded-md cursor-pointer transition-default"
+              className="text-center flex flex-col text-sm text-blue p-2 bg-white hover:bg-blue hover:bg-opacity-10 active:scale-95 rounded-md cursor-pointer transition-default"
             >
               View all Recents
             </Link>

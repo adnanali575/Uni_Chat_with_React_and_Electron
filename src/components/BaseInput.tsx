@@ -40,7 +40,7 @@ const BaseInput: React.FC<InputType> = ({
           placeholder={placeholder}
           className={`${className} ${
             password ? `pe-10` : ``
-          } border border-gray w-full p-3 outline-none rounded focus:border-green transition-default text-md`}
+          } border border-gray w-full p-3 outline-none rounded focus:border-blue transition-default text-md`}
           type={type?.length ? type : "text"}
           autoComplete={name}
           name={name}

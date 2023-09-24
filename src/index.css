@@ -14,11 +14,11 @@
 }
 
 .hover-green {
-  @apply hover:bg-light-green hover:text-green transition-default active:scale-90;
+  @apply hover:bg-blue hover:opacity-10 hover:text-blue transition-default active:scale-90;
 }
 
 .hover-gray {
-  @apply hover:bg-greenish-gray cursor-pointer hover:text-black transition-default active:scale-95 active:bg-light-green active:text-green;
+  @apply hover:bg-greenish-gray cursor-pointer hover:text-black transition-default active:scale-95 active:bg-light-green active:text-blue;
 }
 
 .shadow-header {

@@ -92,9 +92,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           {post.description.length > descriptionLimit && (
             <a
               onClick={toggleDescription}
-              className={`text-green-1 cursor-pointer`}
+              className={`text-blue cursor-pointer`}
             >
-              {isLongDescription ? ".. See less" : ".. See more"}
+              {isLongDescription ? "...See less" : "...See more"}
             </a>
           )}
         </p>
@@ -145,20 +145,20 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <div className={`grid grid-cols-3 w-full`}>
           <button
             onClick={test}
-            className={`active:text-green-1 active:bg-gray-bg py-2 text-center transition-s hover:scale-110 active:scale-100 duration-200 cursor-pointer`}
+            className={`active:text-blue active:bg-gray-bg py-2 text-center transition-s hover:scale-110 active:scale-100 duration-200 cursor-pointer`}
           >
             <FontAwesomeIcon icon="thumbs-up" className="mr-2" />
             Like
           </button>
           <button
             onClick={() => setIsGrow(!isGrow)}
-            className={`py-2 text-center transition-s hover:scale-110 active:scale-100 duration-200 cursor-pointer`}
+            className={`active:text-blue active:bg-gray-bg py-2 text-center transition-s hover:scale-110 active:scale-100 duration-200 cursor-pointer`}
           >
             <FontAwesomeIcon icon="comment" className="mr-2" />
             Comment
           </button>
           <button
-            className={`py-2 text-center transition-s hover:scale-110 active:scale-100 duration-200 cursor-pointer`}
+            className={`active:text-blue active:bg-gray-bg py-2 text-center transition-s hover:scale-110 active:scale-100 duration-200 cursor-pointer`}
           >
             <FontAwesomeIcon icon="share" className="mr-2" />
             Share

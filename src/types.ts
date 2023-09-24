@@ -30,10 +30,17 @@ export interface passwordStrengthControllerType {
 
 export interface postType {
   postText?: string;
-  postImages?: File[];
+  postFiles?: PostFileType[];
   ownerName?: string;
   ownerId?: string;
+  ownerProfile?: string;
   postId?: string;
   publishDate?: Date;
   sheduledDate?: Date;
+}
+
+export interface PostFileType {
+  name: string;
+  url: string;
+  type: string;
 }

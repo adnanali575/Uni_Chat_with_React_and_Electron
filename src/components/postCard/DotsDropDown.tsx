@@ -18,7 +18,7 @@ const DotsDropDown: React.FC = () => {
       {listItems.map((item, i) => (
         <li
           key={i}
-          className={` py-2 px-4 hover:bg-light-green hover:text-green-1 active:bg-none cursor-pointer transition-default`}
+          className={` py-2 px-4 hover:bg-blue hover:bg-opacity-10 hover:text-blue active:bg-none cursor-pointer transition-default`}
         >
           <FontAwesomeIcon icon={item.icon as IconProp} className="mr-3" />
           {item.title}
@@ -56,7 +56,7 @@ const DotsDropDown: React.FC = () => {
     <div className="relative">
       <div
         onClick={toggleDropdown}
-        className={`active:text-green-1 hover:bg-gray-bg cursor-pointer w-[30px] h-[30px] flex items-center justify-center rounded-full aspect-square`}
+        className={`active:text-blue hover:bg-gray-bg cursor-pointer w-[30px] h-[30px] flex items-center justify-center rounded-full aspect-square`}
       >
         <FontAwesomeIcon icon="ellipsis-vertical" className="text-lg" />
       </div>

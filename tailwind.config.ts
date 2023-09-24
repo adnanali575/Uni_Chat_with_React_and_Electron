@@ -8,7 +8,8 @@ export default {
       gray: "#e1e1e1",
       "gray-1": "#c2c2c2",
       "gray-bg": "#f8f9fe",
-      blue: "#0097ff",
+      blue: "#1976D2",
+      "blue-1": "#01579b",
       red: "#ff0000",
       yellow: "#ffe400",
       green: "#15b200",
@@ -16,8 +17,6 @@ export default {
       "light-green": "#e3f9ec",
       "greenish-gray": "#f2f7f2",
       "text-gray": "#606266",
-      "black-transparent": "#00000057",
-      "white-transparent": "#ffffff57",
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],

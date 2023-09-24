@@ -19,7 +19,7 @@ const RightMenuIcons: React.FC<MenuIcons> = ({
     <a
       onClick={onClick}
       href={path}
-      className={`${className} text-base rounded-full aspect-square flex items-center justify-center w-[40px] h-[40px] bg-greenish-gray text-600 hover:bg-light-green hover:text-green active:scale-90 cursor-pointer transition-default`}
+      className={`${className} text-base rounded-full aspect-square flex items-center justify-center w-[40px] h-[40px] bg-gray-bg text-600 hover:bg-blue hover:bg-opacity-10 hover:text-blue active:scale-90 cursor-pointer transition-default`}
     >
       <FontAwesomeIcon icon={icon} />
     </a>

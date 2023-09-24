@@ -23,9 +23,9 @@ const BaseButton: React.FC<ButtonProps> = ({
       className={`${className} ${
         disabled
           ? `bg-gray-1 text-text-gray cursor-not-allowed`
-          : `text-white bg-green-1 hover:bg-green active:bg-green-1`
+          : `bg-gradient-to-r from-blue-1 to-blue hover:from-[#1976D2] hover:to-[#01579b]`
       } ${loading ? `animate-pulse duration-100` : ``}
-      font-bold  text-base transition-default bg-blue-primary  px-5 py-2 rounded-md`}
+       transform text-white px-8 py-3 rounded-md shadow-md active:scale-95`}
     >
       <p>{title}</p>
     </button>

@@ -41,11 +41,11 @@ const SideBarMenu = () => {
           <div className="flex justify-end items-center">
             <button
               onClick={() => setIsOpen(false)}
-              className="w-[40px] h-[40px] flex justify-center items-center overflow-hidden rounded-full aspect-square hover-green"
+              className="w-[40px] h-[40px] flex justify-center items-center overflow-hidden rounded-full aspect-square hover-blue"
             >
               <FontAwesomeIcon
                 icon="close"
-                className="text-2xl p-3 hover:text-green text-text-gray"
+                className="text-2xl p-3 hover:text-blue text-text-gray"
               />
             </button>
           </div>

@@ -81,18 +81,18 @@ const LoginView = () => {
           disabled={isButtonDisabled}
           OnClick={logIn}
           title="Login"
-          className="w-full font-bold mb-3"
+          className="w-full font-semibold mb-3"
         />
         <p className="text-text-gray font-bold text-sm">
           Forgot Password?
-          <a href="#" className="text-green-1 hover:underline ms-1">
+          <a href="#" className="text-blue hover:underline ms-1">
             Reset Password
           </a>
         </p>
 
         <p className="font-bold text-text-gray text-sm">
           Don't have an account?
-          <Link to="/signup" className="text-green-1 hover:underline ms-1">
+          <Link to="/signup" className="text-blue hover:underline ms-1">
             Create Account
           </Link>
         </p>

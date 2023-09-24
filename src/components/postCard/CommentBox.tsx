@@ -63,13 +63,13 @@ const CommentBox: React.FC<ChildProps> = ({ isGrow }) => {
                   </div>
                   <div className={`flex items-center gap-3 px-4 pt-1`}>
                     <p
-                      className={`hover:text-black active:text-green-1 text-xs cursor-pointer`}
+                      className={`hover:text-black active:text-blue text-xs cursor-pointer`}
                     >
                       <FontAwesomeIcon icon="thumbs-up" className="mr-2" />
                       Like
                     </p>
                     <p
-                      className={`hover:text-text-gray active:text-green-1 text-xs cursor-pointer`}
+                      className={`hover:text-text-gray active:text-blue text-xs cursor-pointer`}
                     >
                       <FontAwesomeIcon icon="reply" className="mr-2" />
                       Reply
@@ -88,7 +88,7 @@ const CommentBox: React.FC<ChildProps> = ({ isGrow }) => {
           <hr className={`text-gray`} />
           <div className={`px-4 flex items-center`}>
             <div
-              className={`hover:bg-light-green bg-gray-bg mr-1 hover:text-green-1 flex items-center justify-center rounded-full text-md w-[36px] h-[36px] aspect-square ms-1 cursor-pointer transition-default`}
+              className={`hover:bg-light-green bg-gray-bg mr-1 hover:text-blue flex items-center justify-center rounded-full text-md w-[36px] h-[36px] aspect-square ms-1 cursor-pointer transition-default`}
             >
               😉
             </div>
@@ -97,7 +97,7 @@ const CommentBox: React.FC<ChildProps> = ({ isGrow }) => {
               className={`text-sm focus:bg-greenish-gray bg-gray-bg my-3 px-4 py-2 w-full rounded-3xl transition-default outline-none`}
             />
             <div
-              className={`hover:bg-light-green bg-gray-bg hover:text-green-1 flex items-center justify-center rounded-full text-md w-[36px] h-[36px] aspect-square ms-1 cursor-pointer transition-default`}
+              className={`hover:bg-light-green bg-gray-bg hover:text-blue flex items-center justify-center rounded-full text-md w-[36px] h-[36px] aspect-square ms-1 cursor-pointer transition-default`}
             >
               <FontAwesomeIcon icon="paper-plane" />
             </div>

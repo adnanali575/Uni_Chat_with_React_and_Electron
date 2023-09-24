@@ -196,12 +196,12 @@ const SignUPView = () => {
             disabled={isButtonDisabled}
             OnClick={singUp}
             title="Create Account"
-            className="w-full xs:w-fit font-bold mb-2"
+            className="w-full xs:w-fit font-semibold mb-2"
           />
 
           <p className="mt-3 font-bold">
             Already have an account?
-            <Link to="/login" className="text-green-1 hover:underline ms-1">
+            <Link to="/login" className="text-blue hover:underline ms-1">
               Login
             </Link>
           </p>

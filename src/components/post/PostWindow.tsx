@@ -2,15 +2,24 @@ import React, { useState } from "react";
 import BaseButton from "../BaseButton";
 import FileUploader from "./FileUplader";
 import { postType } from "../../types";
+import {
+  getDownloadURL,
+  ref,
+  storage,
+  uploadBytes,
+} from "../../firebase/firebaseConfig";
 
 const PostWindow = () => {
+  const [isBtnLoading, setIsBtnLoading] = useState(false);
   const [filesData, setfilesData] = useState<File[]>([]);
   const [postData, setPostData] = useState<postType>({
-    ownerName: "",
-    ownerId: "",
+    ownerName: "Shahid Hussain",
+    ownerId: "zUGyNOLiAhOD4emagvoJ8jH72853",
+    ownerProfile:
+      "https://cdn.pixabay.com/photo/2022/01/04/08/05/public-speaking-6914556_640.jpg",
     postText: "",
-    postImages: [],
-    postId: "",
+    postFiles: [],
+    postId: "yu124iou23vm23alskjd33984",
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,14 +28,38 @@ const PostWindow = () => {
 
   const handleFiles = (files: File[]) => {
     setfilesData(files);
-    setPostData({ ...postData, postImages: files });
   };
 
-  const publishPost = () => {
-    console.log(postData);
-  };
+  const publishPost = async () => {
+    setIsBtnLoading(true);
+    const promises = filesData.map(async (file) => {
+      let storageRef = ref(storage, "post_images/" + file.name);
+      if (file.type === "video/mp4") {
+        storageRef = ref(storage, "post_videos/" + file.name);
+      }
 
-  if (false) filesData;
+      const snapshot = await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      return {
+        name: snapshot.ref.name,
+        url: downloadURL,
+        type: file.type,
+      };
+    });
+
+    try {
+      const newFileData = await Promise.all(promises);
+      setPostData((prevData) => ({
+        ...prevData,
+        postFiles: [...(prevData.postFiles || []), ...newFileData],
+      }));
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsBtnLoading(false);
+    }
+  };
 
   return (
     <>
@@ -37,16 +70,27 @@ const PostWindow = () => {
           </h1>
         </div>
         <div className="px-6 py-2 mt-[60px] overflow-y-auto overflow-x-hidden grow">
+          <div className="container">
+            <button className="animated-button">Hover Me</button>
+          </div>
+
           <textarea
             value={postData.postText}
             onChange={handleChange}
             placeholder="Write post description here..."
-            className="resize-none outline-none p-2 my-4 min-h-[150px] w-full border border-gray-1 rounded-md focus:border-green-1 transition-default "
+            className="resize-none outline-none p-2 my-4 min-h-[150px] w-full border border-gray-1 rounded-md focus:border-blue transition-default "
           ></textarea>
-          <FileUploader handleFiles={(files) => handleFiles(files)} />
+          <FileUploader handleFilesEmits={(files) => handleFiles(files)} />
+          {/* <video>
+            <source src="" type="video/mp4" />
+          </video> */}
         </div>
         <div className="w-full z-50 shadow-white-glow bg-white p-2 border-t border-gray-1 flex justify-end">
-          <BaseButton OnClick={publishPost} title="Publish" />
+          <BaseButton
+            OnClick={publishPost}
+            loading={isBtnLoading}
+            title="Publish"
+          />
         </div>
       </div>
     </>
