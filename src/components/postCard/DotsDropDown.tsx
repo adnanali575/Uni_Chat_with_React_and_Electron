@@ -13,7 +13,7 @@ const DotsDropDown: React.FC = () => {
 
   const dropdownContent = (
     <ul
-      className={`translate-down-animation py-3 rounded-md absolute shadow-md bg-white w-[200px] right-[-16px] top-[-11px]`}
+      className={`translate-down-animation py-3 rounded-md absolute shadow-md bg-white w-[200px] right-[2px] top-[-39px]`}
     >
       {listItems.map((item, i) => (
         <li

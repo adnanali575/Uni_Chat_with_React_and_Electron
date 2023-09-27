@@ -28,19 +28,32 @@ export interface passwordStrengthControllerType {
   strongLength: boolean;
 }
 
-export interface postType {
-  postText?: string;
-  postFiles?: PostFileType[];
-  ownerName?: string;
-  ownerId?: string;
-  ownerProfile?: string;
-  postId?: string;
-  publishDate?: Date;
-  sheduledDate?: Date;
-}
-
 export interface PostFileType {
   name: string;
   url: string;
   type: string;
+}
+
+export interface PostType {
+  ownerName: string;
+  ownerId: string;
+  ownerProfile: string;
+  description: string;
+  postFiles: PostFileType[];
+  postId: string;
+  publishDate: Date;
+  sheduledDate: Date;
+  likeCount: number;
+  commentCount: number;
+  shareCount: number;
+}
+
+export interface PostToPublishType {
+  description: string;
+  postFiles: PostFileType[];
+  ownerName: string;
+  ownerId: string;
+  ownerProfile?: string;
+  postId?: string;
+  publishDate?: Date;
 }

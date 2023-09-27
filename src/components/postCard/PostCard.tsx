@@ -1,51 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DotsDropDown from "./DotsDropDown";
 import CommentBox from "./CommentBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux/es/exports";
 import { testAction } from "../../store/usersSlice";
+import PostDescription from "./PostDescription";
+import { PostType } from "../../types";
 
 interface PostCardProps {
-  post: Posts;
-}
-
-interface Posts {
-  profileImageUrl: string;
-  userName: string;
-  date: string;
-  description: string;
-  postVideoUrl?: string | undefined;
-  postImageUrl?: string | undefined;
-  likeCount: number;
-  commentCount: number;
-  shareCount: number;
+  post: PostType;
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
-  const descriptionLimit = 130;
-
   let [isGrow, setIsGrow] = useState(false);
-  let [description, setDescription] = useState(post.description);
-  let [isLongDescription, setIsLongDescription] = useState(
-    post.description.length > descriptionLimit ? true : false
-  );
-
-  useEffect(() => {
-    sliceDescription(post.description);
-  }, [post.description]);
-
-  const sliceDescription = (description: string) => {
-    setIsLongDescription(!isLongDescription);
-    if (isLongDescription) {
-      setDescription(description.substring(0, descriptionLimit));
-    } else {
-      setDescription(post.description);
-    }
-  };
-
-  const toggleDescription = () => {
-    sliceDescription(post.description);
-  };
 
   const CustomCounts = (count: number) => {
     if (count >= 1000 && count < 1100) {
@@ -70,6 +37,15 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
     dispatch(testAction());
   };
 
+  // -----------------------------------
+
+  const dateFormat = (date: Date) => {
+    const newDate = new Date(date);
+    const month = newDate.getMonth
+    // return month.toString()
+    return newDate.toString();
+  };
+
   return (
     <>
       <div
@@ -78,40 +54,20 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <div className="flex justify-between px-4 py-4 ">
           <div className="flex cursor-pointer">
             <div className="w-[50px] h-[50px] rounded-full overflow-hidden flex items-center justify-center">
-              <img className="w-full h-fit" src={post.profileImageUrl} />
+              <img className="w-full h-fit" src={post.ownerProfile} />
             </div>
             <div className="px-2">
-              <p className="font-bold">{post.userName}</p>
-              <p className="text-xs">{post.date}</p>
+              <p className="font-bold">{post.ownerName}</p>
+              <p className="text-xs">{dateFormat(post.publishDate as Date)}</p>
             </div>
           </div>
           <DotsDropDown />
         </div>
-        <p className="px-4 pb-2 text-[15px]">
-          {description}
-          {post.description.length > descriptionLimit && (
-            <a
-              onClick={toggleDescription}
-              className={`text-blue cursor-pointer`}
-            >
-              {isLongDescription ? "...See less" : "...See more"}
-            </a>
-          )}
-        </p>
+        <PostDescription post={post} />
         <div className="w-full max-h-[600px] overflow-hidden flex justify-center items-center">
-          {post.postImageUrl?.length && (
-            <img className="w-full" src={post.postImageUrl} />
-          )}
-          {/* -------------------------------------------------------------------------------------------- */}
-          {post.postVideoUrl?.length != null &&
-            post.postVideoUrl?.length > 0 && (
-              <iframe
-                className="w-full h-[400px]"
-                src={post.postVideoUrl}
-                title="YouTube Video"
-                allowFullScreen
-              ></iframe>
-            )}
+          {post.postFiles?.map((file, index) => (
+            <img key={index} className="w-full" src={file.url} />
+          ))}
         </div>
         {/* -------------------------------------------------------------------------------------------- */}
         {(post.likeCount > 0 ||

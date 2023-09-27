@@ -1,20 +1,25 @@
 import PostCard from "../components/postCard/PostCard";
+import { useEffect, useState } from "react";
+import { onSnapshot, db, collection, query } from "../firebase/firebaseConfig";
+import { PostType } from "../types";
 
 const HomepageView = () => {
+  const [postData, setPostData] = useState<PostType[]>([]);
+
   const posts = [
-    {
-      profileImageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSon7UXXyxvoxfrD0brWchUB7kIU545JP7QtQ&usqp=CAU",
-      userName: "Anonymous",
-      date: "Sept 17 2021, 05:27 PM",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa praesentium quia ipsum ipsam tempore nisi incidunt dolor aspernatur est delectus sunt velit cumque, expedita neque dolorem distinctio nesciunt voluptate deserunt. Vero a doloremque nihil ea, facilis atque distinctio non consequatur repellendus quo qui ipsam veritatis.",
-      postImageUrl:
-        "https://graphicsfamily.com/wp-content/uploads/edd/2021/06/Free-Photoshop-Social-Media-Poster-Design-Template.jpg",
-      likeCount: 123445,
-      commentCount: 57,
-      shareCount: 8,
-    },
+    // {
+    //   profileImageUrl:
+    //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSon7UXXyxvoxfrD0brWchUB7kIU545JP7QtQ&usqp=CAU",
+    //   userName: "Anonymous",
+    //   date: "Sept 17 2021, 05:27 PM",
+    //   description:
+    //     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa @praesentium quia #ipsum ipsam tempore nisi incidunt dolor aspernatur est delectus sunt velit cumque, expedita neque dolorem distinctio nesciunt voluptate deserunt. Vero a doloremque nihil ea, facilis atque distinctio non consequatur repellendus quo qui ipsam veritatis.",
+    //   postImageUrl:
+    //     "https://graphicsfamily.com/wp-content/uploads/edd/2021/06/Free-Photoshop-Social-Media-Poster-Design-Template.jpg",
+    //   likeCount: 123445,
+    //   commentCount: 57,
+    //   shareCount: 8,
+    // },
     {
       profileImageUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI8DK8HCuvWNyHHg8enmbmmf1ue4AeeF3GDw&usqp=CAU",
@@ -59,7 +64,7 @@ const HomepageView = () => {
       userName: "Pro Gamer",
       date: "March 04 2023, 02:11 PM",
       description:
-        "Immerse yourself in intense action and strategy! Join our electrifying live Free Fire stream, where skilled gamers battle for supremacy, showcasing epic moments and interactive gameplay. Don't miss out!",
+        "Immerse yourself in intense action and strategy! Join our @electrifying live Free Fire stream, where skilled gamers battle for supremacy, showcasing epic moments and interactive gameplay. Don't miss out!",
       postVideoUrl: "",
       postImageUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLQm3sj6S3M8MAFexiYK2OZhg_bDqxNC9aCQ&usqp=CAU",
@@ -73,7 +78,7 @@ const HomepageView = () => {
       userName: "Non Stop Speaker",
       date: "March 04 2023, 11:27 AM",
       description:
-        "Among the towering trees of the ancient forest, sunlight filtered through the leaves.",
+        "Among the towering trees of the ancient forest, #sunlight filtered through the leaves.",
       postImageUrl:
         "https://social-poster.io/wp-content/uploads/2020/05/SOPO-All-Pfeile-1024x1024-2.png",
       likeCount: 1200,
@@ -85,6 +90,24 @@ const HomepageView = () => {
   // const arr = [
   //   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   // ];
+
+  useEffect(() => {
+    const citiesCollectionRef = collection(db, "posts");
+    const citiesQuery = query(citiesCollectionRef); // Create a query from the collection reference
+
+    const unsubscribe = onSnapshot(citiesQuery, (querySnapshot) => {
+      let newData: PostType[] = [];
+      querySnapshot.forEach((doc) => {
+        newData.push(doc.data());
+      });
+      setPostData(newData);
+    });
+
+    // Don't forget to return the unsubscribe function to clean up the listener
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <div className="flex justify-between text-9xl">
@@ -103,7 +126,7 @@ const HomepageView = () => {
 
       <div className="min-h-screen text-base w-full xs:w-11/12 md:w-[80%] lg:w-1/2 mx-auto py-4 flex flex-col gap-3">
         <div className="w-full lg:w-11/12 mx-auto">
-          {posts.map((post, i) => (
+          {postData.map((post, i) => (
             <PostCard key={i} post={post} />
           ))}
         </div>

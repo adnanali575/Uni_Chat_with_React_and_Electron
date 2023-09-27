@@ -7,7 +7,9 @@ import {
   setDoc,
   addDoc,
   doc,
-} from "firebase/firestore/lite";
+  onSnapshot,
+  query,
+} from "firebase/firestore";
 import {
   getAuth,
   signOut,
@@ -28,6 +30,7 @@ export {
   db,
   collection,
   getDocs,
+  onSnapshot,
   setDoc,
   addDoc,
   doc,
@@ -40,4 +43,5 @@ export {
   ref,
   uploadBytes,
   getDownloadURL,
+  query,
 };

@@ -58,7 +58,7 @@ const SideBarMenu = () => {
               <SidebarIcons
                 icon="right-from-bracket"
                 label="Logout"
-                className="text-red hover:text-red"
+                className="hover:text-red"
               />
             </button>
           </div>
