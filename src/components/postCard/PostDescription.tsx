@@ -49,7 +49,10 @@ const PostDescription: React.FC<PostCardProps> = ({ post }) => {
   );
 
   return (
-    <p className="px-4 pb-2 text-[15px]">
+    <p
+      onClick={toggleDescription}
+      className="cursor-pointer flex flex-wrap px-4 pb-2 text-[15px]"
+    >
       {renderedWords.map((word, index) => (
         <React.Fragment key={index}>
           {isTag(word)
@@ -60,7 +63,7 @@ const PostDescription: React.FC<PostCardProps> = ({ post }) => {
         </React.Fragment>
       ))}
       {words.length > descriptionLimit && (
-        <a onClick={toggleDescription} className={`text-blue cursor-pointer`}>
+        <a className={`text-blue cursor-pointer`}>
           {isLongDescription ? "...See less" : "...See more"}
         </a>
       )}

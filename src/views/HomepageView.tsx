@@ -2,9 +2,11 @@ import PostCard from "../components/postCard/PostCard";
 import { useEffect, useState } from "react";
 import { onSnapshot, db, collection, query } from "../firebase/firebaseConfig";
 import { PostType } from "../types";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 const HomepageView = () => {
   const [postData, setPostData] = useState<PostType[]>([]);
+  let [cardDataLoaded, setCardDataLoaded] = useState(false);
 
   // const posts = [
   //   // {
@@ -95,18 +97,24 @@ const HomepageView = () => {
     const citiesCollectionRef = collection(db, "posts");
     const citiesQuery = query(citiesCollectionRef);
 
-    const unsubscribe = onSnapshot(citiesQuery, (querySnapshot) => {
-      let newData: PostType[] = [];
-      querySnapshot.forEach((doc) => {
-        newData.push(doc.data() as PostType);
+    try {
+      setCardDataLoaded(true);
+      const unsubscribe = onSnapshot(citiesQuery, (querySnapshot) => {
+        let newData: PostType[] = [];
+        querySnapshot.forEach((doc) => {
+          newData.push(doc.data() as PostType);
+        });
+        setPostData(newData);
+        // setCardDataLoaded(false);
       });
-      setPostData(newData);
-    });
+      return () => {
+        unsubscribe();
+      };
+    } catch (error) {
+      // setCardDataLoaded(false);
+    }
 
     // Don't forget to return the unsubscribe function to clean up the listener
-    return () => {
-      unsubscribe();
-    };
   }, []);
 
   return (
@@ -124,11 +132,17 @@ const HomepageView = () => {
         </div>
       </div>
 
-      <div className="min-h-screen text-base w-full xs:w-11/12 md:w-[80%] lg:w-1/2 mx-auto py-4 flex flex-col gap-3">
+      <div className="text-base w-full xs:w-11/12 md:w-[80%] lg:w-1/2 mx-auto py-4 flex flex-col gap-3">
         <div className="w-full lg:w-11/12 mx-auto">
-          {postData.map((post, i) => (
-            <PostCard key={i} post={post} />
-          ))}
+          {cardDataLoaded ? (
+            <SkeletonLoader />
+          ) : (
+            <>
+              {postData.map((post, i) => (
+                <PostCard key={i} post={post} />
+              ))}
+            </>
+          )}
         </div>
       </div>
 
