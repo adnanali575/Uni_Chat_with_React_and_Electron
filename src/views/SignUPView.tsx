@@ -7,8 +7,7 @@ import CheckBox from "../components/CheckBox";
 import { SignUpDataType } from "../types";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import { setDoc, doc, db, auth, createUserWithEmailAndPassword,
-} from "../firebase/firebaseConfig";
+import { setDoc, doc, db, auth, createUserWithEmailAndPassword, } from "../firebase/firebaseConfig";
 
 const SignUPView = () => {
   const [isPassword, setIsPassword] = useState<boolean>(true);

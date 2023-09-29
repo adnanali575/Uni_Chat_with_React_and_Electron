@@ -9,6 +9,10 @@
   font-family: "Rubik", sans-serif;
 }
 
+.base_input:focus {
+  box-shadow: 0px 0px 10px -3px #1976d2;
+}
+
 .transition-default {
   @apply transition-all duration-200;
 }
