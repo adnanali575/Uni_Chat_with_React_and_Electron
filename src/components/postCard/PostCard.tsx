@@ -41,7 +41,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
   const dateFormat = (date: Date) => {
     const newDate = new Date(date);
-    const month = newDate.getMonth
+    // const month = newDate.getMonth
     // return month.toString()
     return newDate.toString();
   };
