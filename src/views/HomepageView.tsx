@@ -105,13 +105,13 @@ const HomepageView = () => {
           newData.push(doc.data() as PostType);
         });
         setPostData(newData);
-        // setCardDataLoaded(false);
+        setCardDataLoaded(false);
       });
       return () => {
         unsubscribe();
       };
     } catch (error) {
-      // setCardDataLoaded(false);
+      setCardDataLoaded(false);
     }
 
     // Don't forget to return the unsubscribe function to clean up the listener
