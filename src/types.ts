@@ -34,6 +34,11 @@ export interface PostFileType {
   type: string;
 }
 
+export interface TimeStampe{
+  seconds: number;
+  nanoseconds: number;
+}
+
 export interface PostType {
   ownerName: string;
   ownerId: string;
@@ -41,7 +46,7 @@ export interface PostType {
   description: string;
   postFiles: PostFileType[];
   postId: string;
-  publishDate: Date;
+  publishDate: Date | TimeStampe;
   sheduledDate: Date;
   likeCount: number;
   commentCount: number;

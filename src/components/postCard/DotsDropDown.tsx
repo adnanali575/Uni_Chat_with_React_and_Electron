@@ -3,13 +3,45 @@ import React, { useState, useEffect, useRef } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const DotsDropDown: React.FC = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const dotsRef = useRef<HTMLDivElement | null>(null);
+
   const listItems = [
     { title: "Book Mark", icon: "bookmark" },
+    { title: "Delete post", icon: "trash" },
     { title: "Edit Post", icon: "pencil" },
     { title: "Copy Link", icon: "link" },
-    { title: "Delete post", icon: "trash" },
     { title: "Hide Post", icon: "eye-slash" },
   ];
+
+  const handleListItemClick = () => {
+    setIsDropdownOpen(false);
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (
+      isDropdownOpen &&
+      dropdownRef.current &&
+      dotsRef.current &&
+      !dropdownRef.current.contains(e.target as Node) &&
+      !dotsRef.current.contains(e.target as Node)
+    ) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isDropdownOpen]);
 
   const dropdownContent = (
     <ul
@@ -17,8 +49,9 @@ const DotsDropDown: React.FC = () => {
     >
       {listItems.map((item, i) => (
         <li
+          onClick={handleListItemClick}
           key={i}
-          className={` py-2 px-4 hover:bg-blue hover:bg-opacity-10 hover:text-blue active:bg-none cursor-pointer transition-default`}
+          className={`py-2 px-4 hover:bg-blue hover:bg-opacity-10 hover:text-blue active:scale-95 cursor-pointer transition-default`}
         >
           <FontAwesomeIcon icon={item.icon as IconProp} className="mr-3" />
           {item.title}
@@ -27,34 +60,10 @@ const DotsDropDown: React.FC = () => {
     </ul>
   );
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const handleOutsideClick = () => {
-    if (dropdownRef.current) {
-      setIsDropdownOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleOutsideClick);
-    } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isDropdownOpen]);
-
   return (
     <div className="relative">
       <div
+        ref={dotsRef}
         onClick={toggleDropdown}
         className={`active:text-blue hover:bg-gray-bg cursor-pointer w-[30px] h-[30px] flex items-center justify-center rounded-full aspect-square`}
       >

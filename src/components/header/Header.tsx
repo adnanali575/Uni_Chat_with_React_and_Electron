@@ -3,7 +3,7 @@ import Profile from "../Profile";
 import SideBarMenu from "../SidebarMenu/SideBarMenu";
 import SlidUpWindow from "../SlidUpWindow";
 import HeaderMenuIcon from "./HeaderMenuIcon";
-import PostWindow from "../post/PostWindow";
+import AddPostWindow from "../post/AddPostWindow";
 import RightMenuIcons from "./RightMenuIcons";
 import SearchBox from "./SearchBox";
 import DynamicDropDown from "../DynamicDropDown";
@@ -38,7 +38,7 @@ const Header = () => {
             <SlidUpWindow
               isShow={isSlideDownOpen}
               setIsShow={() => setIsSlideDownOpen(!isSlideDownOpen)}
-              content={<PostWindow />}
+              content={<AddPostWindow />}
             />
             <RightMenuIcons
               onClick={() => setIsSlideDownOpen(true)}
@@ -81,7 +81,7 @@ const Header = () => {
             <SlidUpWindow
               isShow={isSlideDownOpen}
               setIsShow={() => setIsSlideDownOpen(!isSlideDownOpen)}
-              content={<PostWindow />}
+              content={<AddPostWindow />}
             />
             <RightMenuIcons
               onClick={() => setIsSlideDownOpen(true)}

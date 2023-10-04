@@ -40,6 +40,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   // -----------------------------------
 
   const dateFormat = (date: Date) => {
+    // console.log(date)
     const newDate = new Date(date);
     // const month = newDate.getMonth
     // return month.toString()
@@ -64,11 +65,71 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <DotsDropDown />
         </div>
         <PostDescription post={post} />
-        <div className="w-full max-h-[600px] overflow-hidden flex justify-center items-center">
-          {post.postFiles?.map((file, index) => (
-            <img key={index} className="w-full" src={file.url} />
-          ))}
-        </div>
+        {/* -------------------------------------------------------------------------------------------- */}
+        {post.postFiles.length > 0 && post.postFiles.length <= 4 && (
+          <div
+            className={`${
+              post.postFiles.length > 1 && post.postFiles.length <= 4
+                ? `grid grid-cols-2 gap-1`
+                : `grid justify-center items-center`
+            } w-full max-h-[600px] overflow-hidden`}
+          >
+            {post.postFiles.length > 0 &&
+              post.postFiles?.map((file, index) => (
+                <div key={index} className="w-fit h-fit">
+                  {file.type === "video/mp4" ? (
+                    <video
+                      controls
+                      preload="auto"
+                      poster="https://i.ytimg.com/vi/x-LVUk2IxDU/maxresdefault.jpg"
+                      src={file.url}
+                    ></video>
+                  ) : (
+                    <img className="w-full" src={file.url} />
+                  )}
+                </div>
+              ))}
+          </div>
+        )}
+
+        {post.postFiles.length > 4 && (
+          <div
+            className={`grid grid-cols-2 gap-1 w-full max-h-[600px] overflow-hidden`}
+          >
+            {post.postFiles.length > 0 &&
+              post.postFiles?.map((file, index) => (
+                <div key={index}>
+                  {file.type === "video/mp4" ? (
+                    <video
+                      controls
+                      preload="auto"
+                      poster="https://i.ytimg.com/vi/x-LVUk2IxDU/maxresdefault.jpg"
+                      src={file.url}
+                    ></video>
+                  ) : (
+                    <div className="w-full h-full">
+                      {index < 3 ? (
+                        <img className="w-full" src={file.url} />
+                      ) : (
+                        <div className="h-full relative">
+                          {index === 3 && (
+                            <div className="relative">
+                              <img src={file.url} />
+                              <div className="w-full h-full cursor-pointer absolute bg-black bg-opacity-40 inset-0 active:bg-opacity-50 transition-all duration-200">
+                                <p className="text-white w-full h-full flex items-center justify-center text-xl">
+                                  +{index}
+                                </p>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+          </div>
+        )}
         {/* -------------------------------------------------------------------------------------------- */}
         {(post.likeCount > 0 ||
           post.commentCount > 0 ||
