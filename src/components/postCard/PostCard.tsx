@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import DotsDropDown from "./DotsDropDown";
 import CommentBox from "./CommentBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux/es/exports";
-import { testAction } from "../../store/usersSlice";
 import PostDescription from "./PostDescription";
 import { PostType } from "../../types";
+import { db, doc, setDoc } from "../../firebase/firebaseConfig";
+import { dateFormater, timeFormater } from "../../helpers";
 
 interface PostCardProps {
   post: PostType;
@@ -32,19 +32,16 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
     return count;
   };
 
-  const dispatch = useDispatch();
-  const test = () => {
-    dispatch(testAction());
+  const handleLikes = (id: string, likeCount: number) => {
+    const likes = likeCount ? likeCount : 0;
+    const cityRef = doc(db, "posts", id);
+    setDoc(cityRef, { likeCount: likes + 1 }, { merge: true });
   };
 
-  // -----------------------------------
-
-  const dateFormat = (date: Date) => {
-    // console.log(date)
-    const newDate = new Date(date);
-    // const month = newDate.getMonth
-    // return month.toString()
-    return newDate.toString();
+  const handleShare = (id: string, shareCount: number) => {
+    const shares = shareCount ? shareCount : 0;
+    const cityRef = doc(db, "posts", id);
+    setDoc(cityRef, { shareCount: shares + 1 }, { merge: true });
   };
 
   return (
@@ -59,17 +56,20 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             </div>
             <div className="px-2">
               <p className="font-bold">{post.ownerName}</p>
-              <p className="text-xs">{dateFormat(post.publishDate as Date)}</p>
+              <p className="text-xs">
+                {dateFormater(post.publishDate)}{" "}
+                {timeFormater(post.publishDate)}
+              </p>
             </div>
           </div>
           <DotsDropDown />
         </div>
         <PostDescription post={post} />
         {/* -------------------------------------------------------------------------------------------- */}
-        {post.postFiles.length > 0 && post.postFiles.length <= 4 && (
+        {post.postFiles.length > 0 && (
           <div
             className={`${
-              post.postFiles.length > 1 && post.postFiles.length <= 4
+              post.postFiles.length > 1
                 ? `grid grid-cols-2 gap-1`
                 : `grid justify-center items-center`
             } w-full max-h-[600px] overflow-hidden`}
@@ -78,53 +78,30 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
               post.postFiles?.map((file, index) => (
                 <div key={index} className="w-fit h-fit">
                   {file.type === "video/mp4" ? (
-                    <video
-                      controls
-                      preload="auto"
-                      poster="https://i.ytimg.com/vi/x-LVUk2IxDU/maxresdefault.jpg"
-                      src={file.url}
-                    ></video>
+                    <video controls poster={file.thumbnail}>
+                      <source src={file.url} />
+                    </video>
                   ) : (
-                    <img className="w-full" src={file.url} />
-                  )}
-                </div>
-              ))}
-          </div>
-        )}
-
-        {post.postFiles.length > 4 && (
-          <div
-            className={`grid grid-cols-2 gap-1 w-full max-h-[600px] overflow-hidden`}
-          >
-            {post.postFiles.length > 0 &&
-              post.postFiles?.map((file, index) => (
-                <div key={index}>
-                  {file.type === "video/mp4" ? (
-                    <video
-                      controls
-                      preload="auto"
-                      poster="https://i.ytimg.com/vi/x-LVUk2IxDU/maxresdefault.jpg"
-                      src={file.url}
-                    ></video>
-                  ) : (
-                    <div className="w-full h-full">
+                    <>
                       {index < 3 ? (
                         <img className="w-full" src={file.url} />
                       ) : (
-                        <div className="h-full relative">
+                        <>
                           {index === 3 && (
                             <div className="relative">
                               <img src={file.url} />
-                              <div className="w-full h-full cursor-pointer absolute bg-black bg-opacity-40 inset-0 active:bg-opacity-50 transition-all duration-200">
-                                <p className="text-white w-full h-full flex items-center justify-center text-xl">
-                                  +{index}
-                                </p>
-                              </div>
+                              {post.postFiles.length !== 4 && (
+                                <div className="w-full h-full cursor-pointer absolute bg-black bg-opacity-40 inset-0 active:bg-opacity-50 transition-all duration-200">
+                                  <p className="text-white w-full h-full flex items-center justify-center text-xl">
+                                    +{post.postFiles.length - 1 - index}
+                                  </p>
+                                </div>
+                              )}
                             </div>
                           )}
-                        </div>
+                        </>
                       )}
-                    </div>
+                    </>
                   )}
                 </div>
               ))}
@@ -161,7 +138,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <hr className={`text-gray`} />
         <div className={`grid grid-cols-3 w-full`}>
           <button
-            onClick={test}
+            onClick={() => handleLikes(post.postId, post.likeCount)}
             className={`active:text-blue active:bg-gray-bg py-2 text-center transition-s hover:scale-110 active:scale-100 duration-200 cursor-pointer`}
           >
             <FontAwesomeIcon icon="thumbs-up" className="mr-2" />
@@ -175,6 +152,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             Comment
           </button>
           <button
+            onClick={() => handleShare(post.postId, post.shareCount)}
             className={`active:text-blue active:bg-gray-bg py-2 text-center transition-s hover:scale-110 active:scale-100 duration-200 cursor-pointer`}
           >
             <FontAwesomeIcon icon="share" className="mr-2" />

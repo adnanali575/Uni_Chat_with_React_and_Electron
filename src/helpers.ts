@@ -1,4 +1,6 @@
-export function passwordStrengthController(password: string) {
+import { Timestamp } from "./types";
+
+export const passwordStrengthController = (password: string) => {
   let isPasswordWeak = false;
   let isPasswordGood = false;
   let isPasswordStrong = false;
@@ -28,4 +30,57 @@ export function passwordStrengthController(password: string) {
     number,
     strongLength,
   };
-}
+};
+
+const getMonthName = (month: number): string => {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return monthNames[month];
+};
+
+const datemaker = (timestampOrDate: Timestamp | Date): Date => {
+  let date: Date;
+
+  if ("seconds" in timestampOrDate && "nanoseconds" in timestampOrDate) {
+    const milliseconds =
+      timestampOrDate.seconds * 1000 +
+      Math.floor(timestampOrDate.nanoseconds / 1000000);
+    date = new Date(milliseconds);
+  } else {
+    date = timestampOrDate;
+  }
+  return date;
+};
+
+export const dateFormater = (timestampOrDate: Timestamp | Date): string => {
+  const date = datemaker(timestampOrDate);
+  const month = getMonthName(date.getMonth());
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  return `${month} ${day}, ${year}`;
+};
+
+export const timeFormater = (timestampOrDate: Timestamp | Date): string => {
+  const date = datemaker(timestampOrDate);
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  if (hours > 12) hours = hours - 12;
+
+  const formattedHours = hours < 10 ? `0${hours}` : hours.toString();
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes.toString();
+
+  return `${formattedHours}:${formattedMinutes}`;
+};

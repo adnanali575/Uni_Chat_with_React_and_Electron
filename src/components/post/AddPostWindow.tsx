@@ -12,7 +12,7 @@ import {
   uploadBytes,
 } from "../../firebase/firebaseConfig";
 
-const AddPostWindow = () => {
+const AddPostWindow: React.FC<{ postAdded: () => void }> = ({ postAdded }) => {
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const [filesData, setfilesData] = useState<File[]>([]);
   const [postData, setPostData] = useState<PostToPublishType>({
@@ -34,31 +34,6 @@ const AddPostWindow = () => {
   };
 
   const publishPost = async () => {
-    // const postFiles = {
-    //   name: "i.pinimg.com",
-    //   url: "https://i.pinimg.com/originals/4d/f1/29/4df12992c336d52c8e6199b354051abd.jpg",
-    //   type: "image/jpeg",
-    // };
-
-    // const data = {
-    //   likeCount: 123445,
-    //   postFiles: postFiles,
-    //   commentCount: 57,
-    //   shareCount: 8,
-    //   publishDate: Date.now(),
-    //   ownerName: "Pixel Pioneer",
-    //   ownerId: "876245230981234",
-    //   ownerProfile:
-    //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSI8DK8HCuvWNyHHg8enmbmmf1ue4AeeF3GDw&usqp=CAU",
-    //   description:
-    //     "The sun dipped below the horizon, casting a warm orange glow across the tranquil sea. Seagulls soared, their calls fading into the gentle lapping of waves against the shore. A sense of calm settled in as the day drew to a close, painting the sky with hues of pink and gold.",
-    // };
-
-    // const docRef = await addDoc(collection(db, "posts"), data);
-    // console.log("Document written with ID: ", docRef.id);
-
-    // return;
-
     setIsBtnLoading(true);
     const promises = filesData.map(async (file) => {
       let storageRef = ref(storage, "post_images/" + file.name);
@@ -86,11 +61,9 @@ const AddPostWindow = () => {
         ...prevData,
         postFiles: [...(prevData.postFiles || []), ...newFileData],
       }));
-      console.log("New Files", newFileData);
-      console.log("pOST dATA", newData);
 
-      const docRef = await addDoc(collection(db, "posts"), newData);
-      console.log("Document written with ID: ", docRef.id);
+      addDoc(collection(db, "posts"), newData);
+      postAdded();
     } catch (error) {
       console.error("Error:", error);
     } finally {

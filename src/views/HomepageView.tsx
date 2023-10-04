@@ -16,8 +16,8 @@ const HomepageView = () => {
       const unsubscribe = onSnapshot(citiesQuery, (querySnapshot) => {
         let newData: PostType[] = [];
         querySnapshot.forEach((doc) => {
-          newData.push(doc.data() as PostType);
-          // console.log(doc.data().publishDate)
+          const data = { ...doc.data(), postId: doc.id };
+          newData.push(data as PostType);
         });
         setPostData(newData);
         setCardDataLoaded(false);

@@ -32,9 +32,15 @@ export interface PostFileType {
   name: string;
   url: string;
   type: string;
+  thumbnail?: string;
 }
 
-export interface TimeStampe{
+export interface Timestamp {
+  seconds: number;
+  nanoseconds: number;
+}
+
+export interface TimeStampe {
   seconds: number;
   nanoseconds: number;
 }

@@ -10,6 +10,7 @@ import DynamicDropDown from "../DynamicDropDown";
 import MessengerDropDown from "../Messenger/MessengerDropDown";
 import NotificationsDropdown from "../NotificationsDropdown";
 import logo from "../../../src/assets/images/Uni_Chat_logo.png";
+import { ToastContainer, toast } from "react-toastify";
 
 const Header = () => {
   const [isSlideDownOpen, setIsSlideDownOpen] = useState(false);
@@ -26,6 +27,7 @@ const Header = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="w-full h-fit md:h-[57px] z-10 fixed top-0 bg-white flex flex-col md:flex-row md:justify-between md:items-center px-6 shadow-header">
         <div className="flex justify-between items-center px-0 xs:px-4 md:px-0">
           <div className="flex items-center gap-1 pe-3 w-fit lg:w-[288px]">
@@ -38,7 +40,11 @@ const Header = () => {
             <SlidUpWindow
               isShow={isSlideDownOpen}
               setIsShow={() => setIsSlideDownOpen(!isSlideDownOpen)}
-              content={<AddPostWindow />}
+              content={
+                <AddPostWindow
+                  postAdded={() => toast.success("Post Published Successfully")}
+                />
+              }
             />
             <RightMenuIcons
               onClick={() => setIsSlideDownOpen(true)}
@@ -81,7 +87,11 @@ const Header = () => {
             <SlidUpWindow
               isShow={isSlideDownOpen}
               setIsShow={() => setIsSlideDownOpen(!isSlideDownOpen)}
-              content={<AddPostWindow />}
+              content={
+                <AddPostWindow
+                  postAdded={() => toast.success("Post Published Successfully")}
+                />
+              }
             />
             <RightMenuIcons
               onClick={() => setIsSlideDownOpen(true)}
