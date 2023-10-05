@@ -57,6 +57,9 @@ export interface PostType {
   likeCount: number;
   commentCount: number;
   shareCount: number;
+  bookMarked?: boolean;
+  bookMarkedPosts?: string[];
+  hiddenPosts?: string[];
 }
 
 export interface PostToPublishType {

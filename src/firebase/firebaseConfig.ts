@@ -9,6 +9,10 @@ import {
   doc,
   onSnapshot,
   query,
+  deleteDoc,
+  updateDoc,
+  arrayUnion,
+  getDoc,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -44,4 +48,8 @@ export {
   uploadBytes,
   getDownloadURL,
   query,
+  deleteDoc,
+  updateDoc,
+  arrayUnion,
+  getDoc,
 };

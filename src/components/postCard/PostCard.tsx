@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DotsDropDown from "./DotsDropDown";
 import CommentBox from "./CommentBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PostDescription from "./PostDescription";
 import { PostType } from "../../types";
-import { db, doc, setDoc } from "../../firebase/firebaseConfig";
+import {
+  db,
+  deleteDoc,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "../../firebase/firebaseConfig";
 import { dateFormater, timeFormater } from "../../helpers";
 
 interface PostCardProps {
@@ -12,7 +19,8 @@ interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
-  let [isGrow, setIsGrow] = useState(false);
+  const [isGrow, setIsGrow] = useState<boolean>(false);
+  const [isBookMared, setIsBookMarked] = useState<boolean>(false);
 
   const CustomCounts = (count: number) => {
     if (count >= 1000 && count < 1100) {
@@ -44,6 +52,42 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
     setDoc(cityRef, { shareCount: shares + 1 }, { merge: true });
   };
 
+  const removeBookMark = async (): Promise<void> => {
+    const userDocRef = doc(db, "users", "zUGyNOLiAhOD4emagvoJ8jH72853");
+    const docSnapshot = await getDoc(userDocRef);
+
+    const data = docSnapshot.data()?.bookMarkedPosts;
+    const newBookMarks = data.filter((e: string) => e !== post.postId);
+
+    const userRef = doc(db, "users", "zUGyNOLiAhOD4emagvoJ8jH72853");
+    await updateDoc(userRef, {
+      bookMarkedPosts: newBookMarks,
+    });
+
+    await deleteDoc(
+      doc(
+        db,
+        "users/zUGyNOLiAhOD4emagvoJ8jH72853/book_marked_post",
+        post.postId
+      )
+    );
+    checkBookMarkStatus();
+  };
+
+  const checkBookMarkStatus = async (): Promise<void> => {
+    let bookMarkedPosts: string[] = [];
+    const userDocRef = doc(db, "users", "zUGyNOLiAhOD4emagvoJ8jH72853");
+    const docSnapshot = await getDoc(userDocRef);
+    if (docSnapshot.exists()) {
+      bookMarkedPosts = docSnapshot.data().bookMarkedPosts;
+    }
+    setIsBookMarked(bookMarkedPosts.some((e) => e === post.postId));
+  };
+
+  useEffect(() => {
+    checkBookMarkStatus();
+  }, [post]);
+
   return (
     <>
       <div
@@ -62,9 +106,21 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
               </p>
             </div>
           </div>
-          <DotsDropDown />
+          <div className="flex items-center gap-3">
+            {isBookMared && (
+              <FontAwesomeIcon
+                onClick={removeBookMark}
+                icon="bookmark"
+                className="text-blue p-1 hover:text-blue-1 text-xl active:scale-90 cursor-pointer transition-default"
+              />
+            )}
+            <DotsDropDown
+              post={post}
+              checkBookMarkStatus={checkBookMarkStatus}
+            />
+          </div>
         </div>
-        <PostDescription post={post} />
+        {post.description && <PostDescription post={post} />}
         {/* -------------------------------------------------------------------------------------------- */}
         {post.postFiles.length > 0 && (
           <div

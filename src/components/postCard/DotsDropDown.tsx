@@ -1,21 +1,70 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect, useRef } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import {
+  arrayUnion,
+  db,
+  deleteDoc,
+  doc,
+  setDoc,
+  updateDoc,
+} from "../../firebase/firebaseConfig";
+import { PostType } from "../../types";
+import { ToastContainer, toast } from "react-toastify";
 
-const DotsDropDown: React.FC = () => {
+const DotsDropDown: React.FC<{
+  post: PostType;
+  checkBookMarkStatus: () => void;
+}> = ({ post, checkBookMarkStatus }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const dotsRef = useRef<HTMLDivElement | null>(null);
 
+  const handleBookMark = async (): Promise<void> => {
+    await setDoc(
+      doc(
+        db,
+        "users/zUGyNOLiAhOD4emagvoJ8jH72853/book_marked_post",
+        post.postId
+      ),
+      { ...post, bookMarked: true }
+    );
+    const userRef = doc(db, "users", "zUGyNOLiAhOD4emagvoJ8jH72853");
+
+    await updateDoc(userRef, {
+      bookMarkedPosts: arrayUnion(post.postId),
+    });
+    checkBookMarkStatus();
+    toast.success("Post Book Marked Successfully");
+  };
+
+  const handleDeletePost = async (): Promise<void> => {
+    await deleteDoc(doc(db, "posts", post.postId));
+    toast.success("Post deleted Successfully");
+  };
+
+  const handleEditPost = async (): Promise<void> => {
+    console.log("Edit Post");
+  };
+
+  const handleCopyLink = (): void => {
+    console.log("Copy Link");
+  };
+
+  const handleHidePost = (): void => {
+    console.log("Hide Post");
+  };
+
   const listItems = [
-    { title: "Book Mark", icon: "bookmark" },
-    { title: "Delete post", icon: "trash" },
-    { title: "Edit Post", icon: "pencil" },
-    { title: "Copy Link", icon: "link" },
-    { title: "Hide Post", icon: "eye-slash" },
+    { title: "Book Mark", icon: "bookmark", action: handleBookMark },
+    { title: "Delete post", icon: "trash", action: handleDeletePost },
+    { title: "Edit Post", icon: "pencil", action: handleEditPost },
+    { title: "Copy Link", icon: "link", action: handleCopyLink },
+    { title: "Hide Post", icon: "eye-slash", action: handleHidePost },
   ];
 
-  const handleListItemClick = () => {
+  const handleListItemClick = (action?: () => void) => {
+    if (action) action();
     setIsDropdownOpen(false);
   };
 
@@ -49,7 +98,7 @@ const DotsDropDown: React.FC = () => {
     >
       {listItems.map((item, i) => (
         <li
-          onClick={handleListItemClick}
+          onClick={() => handleListItemClick(item.action)}
           key={i}
           className={`py-2 px-4 hover:bg-blue hover:bg-opacity-10 hover:text-blue active:scale-95 cursor-pointer transition-default`}
         >
@@ -75,6 +124,7 @@ const DotsDropDown: React.FC = () => {
           ref={dropdownRef}
         >
           {dropdownContent}
+          <ToastContainer />
         </div>
       )}
     </div>

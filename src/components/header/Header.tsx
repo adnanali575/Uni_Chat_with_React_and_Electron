@@ -62,13 +62,14 @@ const Header = () => {
             icon="user-group"
             title="Friend Requests"
           />
-          <HeaderMenuIcon path="/signup" icon="video" title="Videos" />
+          <HeaderMenuIcon path="/videos" icon="video" title="Videos" />
           <HeaderMenuIcon
             icon="bell"
             className="block md:hidden"
             title="Notifications"
           />
           <HeaderMenuIcon
+            path="/book_marks"
             icon="bookmark"
             className="hidden md:flex"
             title="Bookmarks"

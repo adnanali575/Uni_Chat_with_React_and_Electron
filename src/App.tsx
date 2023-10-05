@@ -9,6 +9,8 @@ import * as React from "react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import SearchHistory from "./views/SearchHistory";
 import SettingsView from "./views/SettingsView";
+import BookMarks from "./views/BookMarks";
+import VideosView from "./views/VideosView";
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -64,6 +66,14 @@ function App() {
         {
           path: "/settings",
           element: <SettingsView />,
+        },
+        {
+          path: "/book_marks",
+          element: <BookMarks />,
+        },
+        {
+          path: "/videos",
+          element: <VideosView/>,
         },
       ],
     },
