@@ -22,6 +22,11 @@
   transition: all 0.2s ease-in-out;
 }
 
+/* svg icons */
+._3WRGR{
+    stroke: none;
+}
+
 ._ZTBlf:hover {
   background: #00000066;
 }
