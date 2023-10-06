@@ -11,6 +11,7 @@ import SearchHistory from "./views/SearchHistory";
 import SettingsView from "./views/SettingsView";
 import BookMarks from "./views/BookMarks";
 import VideosView from "./views/VideosView";
+import PostView from "./views/PostView";
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -74,6 +75,10 @@ function App() {
         {
           path: "/videos",
           element: <VideosView/>,
+        },
+        {
+          path: "/post/:id",
+          element: <PostView/>,
         },
       ],
     },

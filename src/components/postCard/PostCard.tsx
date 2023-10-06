@@ -13,6 +13,7 @@ import {
   updateDoc,
 } from "../../firebase/firebaseConfig";
 import { dateFormater, timeFormater } from "../../helpers";
+import { useNavigate } from "react-router-dom";
 
 interface PostCardProps {
   post: PostType;
@@ -21,6 +22,8 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const [isGrow, setIsGrow] = useState<boolean>(false);
   const [isBookMared, setIsBookMarked] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const CustomCounts = (count: number) => {
     if (count >= 1000 && count < 1100) {
@@ -132,13 +135,20 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           >
             {post.postFiles.length > 0 &&
               post.postFiles?.map((file, index) => (
-                <div key={index} className="w-fit h-fit">
+                <div
+                  onClick={() => {
+                    if (file.type !== "video/mp4")
+                      navigate(`/post/${post.postId}`);
+                  }}
+                  key={index}
+                  className="w-fit h-fit"
+                >
                   {file.type === "video/mp4" ? (
                     <video controls poster={file.thumbnail}>
                       <source src={file.url} />
                     </video>
                   ) : (
-                    <>
+                    <div className="cursor-pointer">
                       {index < 3 ? (
                         <img className="w-full" src={file.url} />
                       ) : (
@@ -157,7 +167,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                           )}
                         </>
                       )}
-                    </>
+                    </div>
                   )}
                 </div>
               ))}

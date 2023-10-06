@@ -1,4 +1,4 @@
-import ImageSlider from "../components/ImageSlider";
+import ImageSlider from "../components/ImageSlider/ImageSlider";
 
 const VideosView = () => {
   return (

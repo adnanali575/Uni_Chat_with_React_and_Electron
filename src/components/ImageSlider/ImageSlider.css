@@ -1,0 +1,55 @@
+/* Outer Container */
+._2ILZE svg {
+  width: 15px;
+}
+
+/* Images count span */
+.__JnHV {
+  background: #00000087;
+  color: #fff;
+  opacity: 1;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+/* Back and forward button */
+._ZTBlf {
+  margin: 0px 10px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+._ZTBlf:hover {
+  background: #00000066;
+}
+
+._ZTBlf:active {
+  background: #00000080;
+}
+
+/* Buttons content wrapper */
+._1Pekn {
+  width: fit-content;
+  height: fit-content;
+}
+
+/* Autplay and full screen buttons */
+._3lwW_._1oKnM ._ZTBlf,
+._3lwW_._lhmht ._ZTBlf {
+  padding: 5px 13px;
+  margin: 10px;
+}
+
+._3lwW_._1oKnM ._ZTBlf:hover,
+._3lwW_._lhmht ._ZTBlf:hover {
+  background: none;
+}
+
+/* Autplay and full screen buttons content wrapper */
+._lfOsC._dZ8C- {
+  width: fit-content;
+  height: fit-content;
+}
